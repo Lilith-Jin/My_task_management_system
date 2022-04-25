@@ -1,1 +1,12 @@
 <h1>task list</h1>
+<div>
+  <% @tasks.each do |task|%>
+    <p><%= task.title%></p>
+    <p><%= task.content%></p>
+    <p><%= task.priority%></p>
+    <p><%= task.status%></p>
+    <p><%= task.start_time.to_s(:short)%></p>
+    <p><%= task.end_time.to_s(:short)%></p>
+  <% end %>
+</div>
+
