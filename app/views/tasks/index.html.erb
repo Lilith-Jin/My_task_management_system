@@ -8,6 +8,9 @@
     <p><%= task.status%></p>
     <p><%= task.start_time.to_s(:short)%></p>
     <p><%= task.end_time.to_s(:short)%></p>
+    <p><%= link_to "編輯任務", edit_task_path(task)%></p>
+    <p><%= link_to "查看任務內容", task_path(task)%></p>
+    <p><%= link_to "刪除任務", task_path(task), data: { method: "delete",confirm: '確認刪除？' }%></p>
   <% end %>
 </div>
 

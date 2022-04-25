@@ -1,0 +1,8 @@
+<h1>任務細節</h1>
+<div>任務名稱</div>
+<div><%= @task.title%></div>
+<p>任務內容<%= @task.content%></p>
+<p>優先順序<%= @task.priority%></p>
+<p>任務狀態<%= @task.status%></p>
+<p>任務開始時間<%= @task.start_time.to_s(:short)%></p>
+<p>任務結束時間<%= @task.end_time.to_s(:short)%></p>
