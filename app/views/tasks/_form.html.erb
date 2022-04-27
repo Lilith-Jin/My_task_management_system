@@ -21,11 +21,11 @@
           </div>
           <div class="fields flex space-x-4">
             <%= t.label :priority,"優先順序" %>
-            <%= select(:task, :priority,[['高', 1], ['中', 2], ['低', 3]])%>
+            <%= select(:task, :priority,['高', '中', '低'])%>
           </div>
           <div class="fields flex space-x-4">
             <%= t.label :status,"任務狀態" %>
-            <%= select(:task, :status,[['待處理', 1], ['進行中', 2], ['已完成', 3]])%>
+            <%= select(:task, :status,['待處理', '進行中', '已完成'])%>
           </div>
 
           <button><%= t.submit btn_label, class:" px-6 py-2 mx-auto block rounded-md text-lg font-semibold bg-sky-600 hover:bg-sky-700 text-white cursor-pointer " %></button>
