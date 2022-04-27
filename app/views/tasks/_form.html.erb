@@ -1,28 +1,36 @@
-<%= form_with(model: task) do |t| %>
-  <div class="fields">
-    <%= t.label :title,"任務名稱" %>
-    <%= t.text_field :title %>
-  </div>
-  <div class="fields">
-    <%= t.label :content,"任務內容" %>
-    <%= t.text_area :content %>
-  </div>
-  <div class="fields">
-    <%= t.label :priority,"優先順序" %>
-    <%= select(:task, :priority,[['高', 1], ['中', 2], ['低', 3]])%>
-  </div>
-  <div class="fields">
-    <%= t.label :status,"任務狀態" %>
-    <%= select(:task, :status,[['待處理', 1], ['進行中', 2], ['已完成', 3]])%>
-  </div>
-  <div class="fields">
-    <%= t.label :start_time,"開始時間" %>
-    <%= t.date_field :start_time %>
-  </div>
-  <div class="fields">
-    <%= t.label :end_time,"結束時間" %>
-    <%= t.date_field :end_time %>
-  </div>
+<form>
+  <div class="bg-indigo-50 min-h-screen md:px-20 pt-6">
+    <div class=" bg-white rounded-md px-6 py-10 max-w-2xl mx-auto">
+      <div class="space-y-4">
+        <%= form_with(model: task) do |t| %>
+          <div class="fields flex space-x-4">
+            <%= t.label :title,"任務名稱", class: "text-lx" %>
+            <%= t.text_field :title, class:"ml-2 outline-none py-1 px-2 text-md border-2 rounded-md", placeholder:"請輸入標題" %>
+          </div>
+          <div class="fields flex space-x-4">
+            <%= t.label :content,"任務內容", class: "text-lx " %>
+            <%= t.text_area :content , class:"ml-2 outline-none py-1 px-2 text-md border-2 rounded-md", placeholder:"請輸入內容"%>
+          </div>
+          <div class="fields flex space-x-4">
+            <%= t.label :priority,"優先順序" %>
+            <%= select(:task, :priority,[['高', 1], ['中', 2], ['低', 3]])%>
+          </div>
+          <div class="fields flex space-x-4">
+            <%= t.label :status,"任務狀態" %>
+            <%= select(:task, :status,[['待處理', 1], ['進行中', 2], ['已完成', 3]])%>
+          </div>
+          <div class="fields flex space-x-4">
+            <%= t.label :start_time,"開始時間" %>
+            <%= t.date_field :start_time, class:"ml-2 outline-none py-1 px-2 text-md border-2 rounded-md" %>
+          </div>
+          <div class="fields flex space-x-4">
+            <%= t.label :end_time,"結束時間" %>
+            <%= t.date_field :end_time, class:"ml-2 outline-none py-1 px-2 text-md border-2 rounded-md" %>
+          </div>
 
-  <%= t.submit btn_label %>
-<% end %>
+          <button><%= t.submit btn_label ,class:" px-6 py-2 mx-auto block rounded-md text-lg font-semibold text-indigo-100 bg-indigo-600  " %></button>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</form>
