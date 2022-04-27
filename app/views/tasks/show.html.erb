@@ -1,8 +1,10 @@
-<h1>任務細節</h1>
-<div>任務名稱</div>
-<div><%= @task.title%></div>
-<p>任務內容<%= @task.content%></p>
-<p>優先順序<%= @task.priority%></p>
-<p>任務狀態<%= @task.status%></p>
-<p>任務開始時間<%= @task.start_time.to_s(:short)%></p>
-<p>任務結束時間<%= @task.end_time.to_s(:short)%></p>
+<div class="font-bold text-6xl text-blue-500">任務細節</div>
+<div class="py-4 text-4xl font-medium">任務名稱：<%= @task.title%></div>
+<div class="space-y-2 text-xl">
+    <p>任務內容：<%= @task.content%></p>
+    <p>優先順序：<%= @task.priority%></p>
+    <p>任務狀態：<%= @task.status%></p>
+    <p>任務開始時間：<%= @task.start_time.to_s(:short)%></p>
+    <p>任務結束時間：<%= @task.end_time.to_s(:short)%></p>
+    <button class="px-6 py-2 rounded-lg w-1/8 bg-sky-600 hover:bg-sky-700 text-white"><%= link_to "返回上一頁", tasks_path(@task)%></button>
+</div>
