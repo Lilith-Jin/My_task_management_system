@@ -34,7 +34,7 @@ class TasksController < ApplicationController
 
   def destroy
     @task.destroy
-    redirect_to tasks_path, notice: "任務已刪除"
+    redirect_to tasks_path, status: :see_other, notice: "任務已刪除"
   end
 
   private
