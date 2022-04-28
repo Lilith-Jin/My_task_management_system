@@ -14,7 +14,7 @@
         <div>任務結束時間：<%= task.end_time.to_fs(:short)%></div>
         <button class="px-6 py-2 rounded-lg w-1/8 bg-sky-600 hover:bg-sky-700 text-white"><%= link_to "查看任務", task_path(task)%></button>
         <button class="px-6 py-2 rounded-lg w-1/8 bg-sky-600 hover:bg-sky-700 text-white"><%= link_to "編輯任務", edit_task_path(task)%></button>
-        <button class="px-6 py-2 rounded-lg w-1/8 bg-gray-400 hover:bg-gray-500 text-white"><%= link_to "刪除任務", task_path(task), data: { "turbo-method": :delete, "turbo-confirm":'您確定要刪除嗎？' }%></button>
+        <button class="px-6 py-2 rounded-lg w-1/8 bg-gray-400 hover:bg-gray-500 text-white"><%= link_to "刪除任務", task_path(task), id: 'delete-task', data: { "turbo-method": :delete, "turbo-confirm":'您確定要刪除嗎？' }%></button>
        </div>
     </div>
     <% end %>

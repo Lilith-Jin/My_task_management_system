@@ -19,6 +19,7 @@ RSpec.feature "task management", :type => :feature do
       click_button "新增任務"
 
       expect(page).to have_text("新增任務成功")
+      expect(current_path).to have_content(tasks_path)
     end
   end
 
@@ -42,30 +43,36 @@ RSpec.feature "task management", :type => :feature do
       click_button "更新任務"
 
       expect(page).to have_text("更新任務成功")
+      expect(current_path).to have_content(tasks_path)
       
     end
   end
-  # context 'delete task ' do
-  #   scenario "Successfuly delete a task" do
-  #     task = Task.create(title:"task1", content:"123", start_time: DateTime.now, end_time: DateTime.now ,priority:"high", status:"running")
-  #     visit tasks_path
-    
-  #     click_link '刪除任務'
-
-  #     expect(click_link'刪除任務').to change(Task, :count).by(-1)
-  #     expect(page).to have_content('任務已刪除')
-  #   end
-  # end
-
+  
   context 'read task ' do
     scenario "Successfuly read a task" do
       task = Task.create(title:"task1", content:"123", start_time: DateTime.now, end_time: DateTime.now ,priority:"high", status:"running")
       visit tasks_path
-    
+      
       click_link '查看任務'
-
+      
       expect(current_path).to have_content(task_path(task))
+
+      click_link '返回上一頁'
+      expect(current_path).to have_content(tasks_path)
     end
   end
-
+  
+  context 'delete task ' do
+    scenario "Successfuly delete a task",driver: :selenium_chrome, js: true  do
+      task = Task.create(title:"task1", content:"123456", start_time: DateTime.now, end_time: DateTime.now ,priority:"medium", status:"running")
+      visit tasks_path
+    
+      find(:xpath, "//a[@href='/tasks/#{task.id}']", text: "刪除任務").click 
+      accept_alert(text: "您確定要刪除嗎？")
+     
+      expect(page).to have_current_path(tasks_path)
+      expect(page).to have_content('任務已刪除')
+      
+    end
+  end
 end
