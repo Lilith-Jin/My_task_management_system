@@ -45,15 +45,26 @@ RSpec.feature "task management", :type => :feature do
       
     end
   end
-  context 'task index' do
-    scenario "Successfuly delete a task" do
+  # context 'delete task ' do
+  #   scenario "Successfuly delete a task" do
+  #     task = Task.create(title:"task1", content:"123", start_time: DateTime.now, end_time: DateTime.now ,priority:"high", status:"running")
+  #     visit tasks_path
+    
+  #     click_link '刪除任務'
+
+  #     expect(click_link'刪除任務').to change(Task, :count).by(-1)
+  #     expect(page).to have_content('任務已刪除')
+  #   end
+  # end
+
+  context 'read task ' do
+    scenario "Successfuly read a task" do
       task = Task.create(title:"task1", content:"123", start_time: DateTime.now, end_time: DateTime.now ,priority:"high", status:"running")
       visit tasks_path
     
-      click_link '刪除任務'
+      click_link '查看任務'
 
-      expect(click_link '刪除任務').to change(Task, :count).by(-1)
-      expect(page).to have_content '任務已刪除'
+      expect(current_path).to have_content(task_path(task))
     end
   end
 
