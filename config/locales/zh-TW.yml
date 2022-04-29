@@ -1,0 +1,36 @@
+"zh-TW":
+    task: 
+      h1:
+        index_task: 任務列表
+        new_task: 新增任務
+        edit_task: 編輯任務
+        show_task: 任務細節
+      column:
+        title: 任務名稱：
+        content: 任務內容：
+        priority: 任務優先順序：
+        status: 任務狀態：
+        start_time: 任務開始時間：
+        end_time: 任務結束時間：
+      action:
+        back: 返回上一頁
+        create: 新增任務
+        update: 更新任務
+        show: 查看任務
+        delete: 刪除任務
+
+    priority:
+      high: 高
+      mid: 中
+      low: 低
+
+    status:
+      waitting: 待處理
+      running: 進行中
+      done: 已完成
+
+    message:
+      success_create: 任務新增成功！
+      success_update: 任務更新成功！
+      success_delete: 任務刪除成功！
+      confirm_delete: 您確定要刪除此筆任務嗎？  
