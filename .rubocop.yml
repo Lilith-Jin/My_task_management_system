@@ -1,18 +1,18 @@
 inherit_from: .rubocop_todo.yml
 
 AllCops:
-    Exclude:
-      - 'bin/*'
-      - 'config/**/*'
-      - 'db/**/*'
-      - 'node_modules/**/*'
-      - 'test/**/*'
-      - 'Gemfile'
-    TargetRubyVersion: 3.0
+  Exclude:
+    - 'bin/*'
+    - 'config/**/*'
+    - 'db/**/*'
+    - 'node_modules/**/*'
+    - 'spec/**/*'
+    - 'test/**/*'
+  TargetRubyVersion: 3.0.0
 
-  Style/Documentation:
-    Enabled: false
+Style/Documentation:
+  Enabled: false
 
-  Style/SymbolArray:
-    Exclude:
-      - 'Gemfile'
+Style/SymbolArray:
+  Exclude:
+    - 'Gemfile'
