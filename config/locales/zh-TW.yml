@@ -19,18 +19,18 @@
         show: 查看任務
         delete: 刪除任務
 
-    priority:
-      high: 高
-      mid: 中
-      low: 低
+      priority:
+        high: 高
+        mid: 中
+        low: 低
 
-    status:
-      waitting: 待處理
-      running: 進行中
-      done: 已完成
+      status:
+        waiting: 待處理
+        running: 進行中
+        done: 已完成
 
-    message:
-      success_create: 任務新增成功！
-      success_update: 任務更新成功！
-      success_delete: 任務刪除成功！
-      confirm_delete: 您確定要刪除此筆任務嗎？  
+      message:
+        success_create: 任務新增成功！
+        success_update: 任務更新成功！
+        success_delete: 任務刪除成功！
+        confirm_delete: 您確定要刪除此筆任務嗎？  
