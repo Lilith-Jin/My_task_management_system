@@ -75,4 +75,15 @@ RSpec.feature "task management", :type => :feature do
       
     end
   end
+
+  context 'task order' do
+    scenario "desc order by task create time on index page" do
+      task1 = Task.create(title:"task1", content:"123456", start_time: DateTime.now, end_time: DateTime.now ,priority:"high", status:"running", created_at: DateTime.now)
+      task2 = Task.create(title:"task2", content:"654321", start_time: DateTime.now, end_time: DateTime.now ,priority:"high", status:"running", created_at: DateTime.now+1)
+
+      visit tasks_path
+      expect(Task.all.map(&:created_at)).to have_content([task2.created_at, task1.created_at])
+
+    end
+  end
 end
