@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.feature "task_management", :type => :feature do
   context 'task CRUD' do
-    let(:task) {FactoryBot.create (:task) }
+    let!(:task) {FactoryBot.create (:task) }
   
     describe '#create' do
       it "Successfuly creates a new task " do
@@ -30,18 +30,13 @@ RSpec.feature "task_management", :type => :feature do
     describe '#update' do
       it "Successfuly updates a new task" do
         visit tasks_path
-        # task = Task.find_by(title: "task1")
-        # visit task_path(task)
+        task = Task.find_by(title:'task1')
+        visit tasks_path(task.id)
         click_link("編輯任務")
         expect(current_path).to have_content(edit_task_path(task))
 
         within("form") do 
             fill_in 'task_title', with:"task2"
-            fill_in 'task_content', with:"123"
-            fill_in 'task_start_time', with: DateTime.now
-            fill_in 'task_end_time', with: DateTime.now
-            select 'high', from: 'task_priority'
-            select'running', from: 'task_status'
         end
 
         click_button "更新任務"
