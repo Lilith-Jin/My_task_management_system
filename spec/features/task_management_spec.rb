@@ -55,21 +55,20 @@ RSpec.feature "task_management", :type => :feature do
         expect(current_path).to have_content(tasks_path)
       end
     end
-  end
-  # context 'delete task ' do
-  #   scenario "Successfuly delete a task",driver: :selenium_chrome, js: true  do
-  #     task = Task.create(title:"task1", content:"123456", start_time: DateTime.now, end_time: DateTime.now ,priority:"medium", status:"running")
-  #     visit tasks_path
-    
-  #     find(:xpath, "//a[@href='/tasks/#{task.id}']", text: "刪除任務").click 
-  #     accept_alert(text: "您確定要刪除嗎？")
-     
-  #     expect(page).to have_current_path(tasks_path)
-  #     expect(page).to have_content('任務已刪除')
+  
+    describe '#destroy' do
+      it "Successfuly delete a task", driver: :selenium_chrome, js: true  do
+        visit tasks_path
+        task = Task.find_by(title:'task1')
+        click_link '刪除任務'
+        accept_alert(text: "您確定要刪除嗎？")
       
-  #   end
-  # end
-
+        expect(page).to have_current_path(tasks_path)
+        expect(page).to have_content('任務已刪除')
+        
+      end
+    end
+  end
   # context 'task order' do
   #   scenario "desc order by task create time on index page" do
   #     task1 = Task.create(title:"task1", content:"123456", start_time: DateTime.now, end_time: DateTime.now ,priority:"high", status:"running", created_at: DateTime.now)
