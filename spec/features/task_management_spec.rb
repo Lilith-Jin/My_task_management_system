@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "task_management", :type => :feature do
+RSpec.feature 'task_management', :type => :feature do
   context 'task CRUD' do
     let!(:task) { FactoryBot.create (:task) }
     it 'Successfuly creates a new task' do
