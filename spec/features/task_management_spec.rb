@@ -31,7 +31,6 @@ RSpec.feature "task_management", :type => :feature do
       it "Successfuly updates a new task" do
         visit tasks_path
         task = Task.find_by(title:'task1')
-        visit tasks_path(task.id)
         click_link("編輯任務")
         expect(current_path).to have_content(edit_task_path(task))
 
@@ -44,21 +43,19 @@ RSpec.feature "task_management", :type => :feature do
         expect(current_path).to have_content(tasks_path)
       end
     end
-  end
-  # context 'read task ' do
-  #   scenario "Successfuly read a task" do
-  #     task = Task.create(title:"task1", content:"123", start_time: DateTime.now, end_time: DateTime.now ,priority:"high", status:"running")
-  #     visit tasks_path
-      
-  #     click_link '查看任務'
-      
-  #     expect(current_path).to have_content(task_path(task))
-
-  #     click_link '返回上一頁'
-  #     expect(current_path).to have_content(tasks_path)
-  #   end
-  # end
   
+    describe '#show' do
+      it "Successfuly read a task" do
+        visit tasks_path
+        task = Task.find_by(title:'task1')
+        click_link '查看任務'
+        expect(current_path).to have_content(task_path(task))
+
+        click_link '返回上一頁'
+        expect(current_path).to have_content(tasks_path)
+      end
+    end
+  end
   # context 'delete task ' do
   #   scenario "Successfuly delete a task",driver: :selenium_chrome, js: true  do
   #     task = Task.create(title:"task1", content:"123456", start_time: DateTime.now, end_time: DateTime.now ,priority:"medium", status:"running")
