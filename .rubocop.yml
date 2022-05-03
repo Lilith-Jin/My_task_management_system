@@ -25,9 +25,6 @@ Style/AsciiComments:
 RSpec/ContextWording:
   Exclude:
     - spec/support/shared_context/**.rb
-# RSpec/MultipleMemoizedHelpers:
-#   Exclude:
-#     - spec/forms/opd/clinic_group_form_spec.rb
 RSpec/BeforeAfterAll:
   Exclude:
     - spec/features/*.rb
@@ -38,9 +35,6 @@ RSpec/MultipleExpectations:
   Exclude:
     - spec/features/*.rb
     - spec/features/**/*.rb
-# Security/Open:
-#   Exclude:
-#     - app/models/article.rb
 Style/FormatStringToken:
   Exclude:
     - config/routes.rb
@@ -73,9 +67,7 @@ Metrics:
 Metrics/ParameterLists:
   Exclude:
     - app/components/**/*
-Metrics/AbcSize:
-  Exclude:
-    - app/mailers/ops/booking_notification_mailer.rb
+
 Metrics/BlockLength:
   Exclude:
     - config/routes.rb
