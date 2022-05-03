@@ -6,5 +6,5 @@
     <p>任務狀態：<%= @task.status%></p>
     <p>任務開始時間：<%= @task.start_time.to_s(:short)%></p>
     <p>任務結束時間：<%= @task.end_time.to_s(:short)%></p>
-    <button class="px-6 py-2 rounded-lg w-1/8 bg-sky-600 hover:bg-sky-700 text-white"><%= link_to "返回上一頁", tasks_path(@task)%></button>
+    <button class="px-6 py-2 rounded-lg w-1/8 bg-sky-600 hover:bg-sky-700 text-white"><%= link_to "返回上一頁", tasks_path %></button>
 </div>
