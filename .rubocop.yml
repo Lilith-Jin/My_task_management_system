@@ -25,18 +25,22 @@ Style/AsciiComments:
 RSpec/ContextWording:
   Exclude:
     - spec/support/shared_context/**.rb
-RSpec/MultipleMemoizedHelpers:
-  Exclude:
-    - spec/forms/opd/clinic_group_form_spec.rb
+# RSpec/MultipleMemoizedHelpers:
+#   Exclude:
+#     - spec/forms/opd/clinic_group_form_spec.rb
 RSpec/BeforeAfterAll:
   Exclude:
     - spec/features/*.rb
     - spec/features/**/*.rb
     - spec/support/shared_context/*.rb
     - spec/support/shared_context/**/*.rb
-Security/Open:
+RSpec/MultipleExpectations:
   Exclude:
-    - app/models/article.rb
+    - spec/features/*.rb
+    - spec/features/**/*.rb
+# Security/Open:
+#   Exclude:
+#     - app/models/article.rb
 Style/FormatStringToken:
   Exclude:
     - config/routes.rb
@@ -82,6 +86,6 @@ Metrics/BlockLength:
 Style/Documentation:
   Enabled: false
 Layout/LineLength:
-  IgnoredPatterns: ['\A#', '^ *# ']
+  AllowedPatterns: ['\A#', '^ *# ']
 RSpec/ImplicitBlockExpectation:
   Enabled: false
