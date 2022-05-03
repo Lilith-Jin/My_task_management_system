@@ -1,0 +1,83 @@
+require:
+  - rubocop-performance
+  - rubocop-rails
+  - rubocop-rspec
+
+AllCops:
+  TargetRubyVersion: 3.0.0
+  DisplayCopNames: true
+  SuggestExtensions: false
+  NewCops: enable
+  Exclude:
+    - db/seeds.rb
+    - bin/*
+    - vendor/ruby/**/*
+    - node_modules/**/*
+    - db/schema.rb
+    - .licenses/**/*
+    - config/*.rb
+    - lib/tasks/auto_annotate_models.rake
+    - db/migrate/*.rb
+Rails:
+  Enabled: true
+Style/AsciiComments:
+  Enabled: false
+RSpec/ContextWording:
+  Exclude:
+    - spec/support/shared_context/**.rb
+RSpec/BeforeAfterAll:
+  Exclude:
+    - spec/features/*.rb
+    - spec/features/**/*.rb
+    - spec/support/shared_context/*.rb
+    - spec/support/shared_context/**/*.rb
+RSpec/MultipleExpectations:
+  Exclude:
+    - spec/features/*.rb
+    - spec/features/**/*.rb
+Style/FormatStringToken:
+  Exclude:
+    - config/routes.rb
+Style/MixinUsage:
+  Exclude:
+    - spec/factories/**/*.rb
+Lint/EmptyBlock:
+  Exclude:
+    - spec/**/*
+Lint/MissingSuper:
+  Exclude:
+    - app/components/*
+    - app/components/**/*
+Rails/SkipsModelValidations:
+  Enabled: false
+Rails/UnknownEnv:
+  Environments:
+    - production
+    - staging
+    - development
+    - test
+Metrics:
+  Exclude:
+    - db/migrate/*
+    - Rakefile
+    - Gemfile
+    - config/**/*
+    - spec/**/*
+    - lib/tasks/**/*
+Metrics/ParameterLists:
+  Exclude:
+    - app/components/**/*
+
+Metrics/BlockLength:
+  Exclude:
+    - config/routes.rb
+    - config/environments/*
+    - lib/tasks/**/*
+    - spec/**/*
+    - app/views/**/*
+Style/Documentation:
+  Enabled: false
+Layout/LineLength:
+  AllowedPatterns: ['\A#', '^ *# ']
+RSpec/ImplicitBlockExpectation:
+  Enabled: false
