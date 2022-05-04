@@ -57,18 +57,18 @@ RSpec.describe 'task management', type: :feature do
   context 'with show page' do
     before do
       visit tasks_path
+      click_link I18n.t('task.action.show')
     end
 
     it 'Link to read a task' do
-      click_link I18n.t('task.action.show')
-      expect(page).to have_text(I18n.t('task.h1.show_task'))
       expect(page).to have_current_path(task_path(task))
+      expect(page).to have_text(I18n.t('task.h1.show_task'))
     end
 
-    it 'test back button' do
-      click_link I18n.t('task.action.show')
+    it 'Test back to last page button' do
       click_link I18n.t('task.action.back')
       expect(page).to have_current_path(tasks_path)
+      expect(page).to have_text(I18n.t('task.h1.index_task'))
     end
   end
 
