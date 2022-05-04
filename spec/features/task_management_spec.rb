@@ -51,7 +51,6 @@ RSpec.describe 'task management', type: :feature do
       expect(page).to have_content('new title')
       expect(page).to have_text(I18n.t('task.message.success_update'))
     end
-
   end
 
   context 'with show page' do
@@ -72,18 +71,14 @@ RSpec.describe 'task management', type: :feature do
     end
   end
 
-  context 'with task destroy' do
+  context 'with delete the task' do
     it 'Successfuly delete a task', driver: :selenium_chrome, js: true do
       visit tasks_path
       find(:xpath, "//a[@href='/tasks/#{task.id}']", text: I18n.t('task.action.delete')).click
-      accept_alert(text: I18n.t('task.message.confirm_delete'))
-      expect_destroy_task_result
-    end
-
-    def expect_destroy_task_result
+      accept_alert(text: I18n.t('task.message.confirm_delete'), title: task.title)
       expect(page).to have_current_path(tasks_path)
       expect(page).to have_content(I18n.t('task.message.success_delete'))
-      expect(task).to be_nil
+      expect(Task.count).to eq(0)
     end
   end
 end
