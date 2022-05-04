@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'task management', type: :feature do
-  let!(:task) { create(:task) }
+  let!(:task) { FactoryBot.create(:task) }
 
   context 'with new page' do
     before do
@@ -19,9 +19,8 @@ RSpec.describe 'task management', type: :feature do
     it 'Successfuly creates a new task' do
       fill_data
       click_button I18n.t('task.action.create')
-      expect(page).to have_text(task.title)
+      expect(page).to have_content(task.title)
       expect(page).to have_text(I18n.t('task.message.success_create'))
-      expect(page).to have_current_path(tasks_path)
     end
 
     def fill_data
@@ -57,7 +56,6 @@ RSpec.describe 'task management', type: :feature do
     end
 
     def edit_data
-      debugger
       within('form') do
         fill_in 'task_title', with: 'xxx'
         fill_in 'task_content', with: task.content
