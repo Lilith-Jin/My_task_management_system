@@ -18,5 +18,6 @@ module MyTaskManagementSystem
     #
     config.time_zone = "Taipei"
     # config.eager_load_paths << Rails.root.join("extras")
+    config.i18n.default_locale = 'zh-TW'
   end
 end

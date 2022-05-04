@@ -1,81 +1,104 @@
-require "rails_helper"
+# frozen_string_literal: true
 
-RSpec.feature "task management", :type => :feature do
-  context 'create new task' do
-    scenario "Successfuly creates a new task" do
+require 'rails_helper'
+
+RSpec.describe 'task management', type: :feature do
+  subject { page }
+  let!(:task) { FactoryBot.create(:task) }
+
+  context 'with new page' do
+    before do
       visit tasks_path
-      click_link("新增任務")
+      click_link(I18n.t('task.action.create'))
+    end
+    
+    describe 'Link to creates a new task' do
+      it { is_expected.to have_current_path(new_task_path) }
+      it { is_expected.to have_css('form') }
 
-      expect(current_path).to have_content('tasks/new')
-      within("form") do 
-        fill_in 'task_title', with:"task1"
-        fill_in 'task_content', with:"123"
-        fill_in 'task_start_time', with: DateTime.now
-        fill_in 'task_end_time', with: DateTime.now
-        select 'high', from: 'task_priority'
-        select'running', from: 'task_status'
+      context 'with successfuly creates a new task' do
+        before do
+          fill_data
+          click_button I18n.t('task.action.create')
+        end
+
+        it { is_expected.to have_content(task.title) }
+        it { is_expected.to have_text(I18n.t('task.message.success_create')) }
       end
 
-      click_button "新增任務"
-
-      expect(page).to have_text("新增任務成功")
-      expect(current_path).to have_content(tasks_path)
-    end
-  
-    scenario "Successfuly updates a new task" do
-      task = Task.create(title:"task1", content:"123", start_time: DateTime.now, end_time: DateTime.now ,priority:"high", status:"running")
-      # visit edit_task_path(task)
-      visit tasks_path
-      click_link("編輯任務")
-
-      expect(current_path).to have_content(edit_task_path(task))
-      within("form") do 
-          fill_in 'task_title', with:"task1"
-          fill_in 'task_content', with:"123"
-          fill_in 'task_start_time', with: DateTime.now
-          fill_in 'task_end_time', with: DateTime.now
-          select 'high', from: 'task_priority'
-          select'running', from: 'task_status'
-    end
-
-      click_button "更新任務"
-
-      expect(page).to have_text("更新任務成功")
-      expect(current_path).to have_content(tasks_path)
-      
-    end
-  
-    scenario "Successfuly read a task" do
-      task = Task.create(title:"task1", content:"123", start_time: DateTime.now, end_time: DateTime.now ,priority:"high", status:"running")
-      visit tasks_path
-      
-      click_link '查看任務'
-      
-      expect(current_path).to have_content(task_path(task))
-
-      click_link '返回上一頁'
-      expect(current_path).to have_content(tasks_path)
-    end
-
-  
-
-    scenario "Successfuly delete a task",driver: :selenium_chrome, js: true  do
-      task = Task.create(title:"task1", content:"123456", start_time: DateTime.now, end_time: DateTime.now ,priority:"medium", status:"running")
-      visit tasks_path
-    
-      find(:xpath, "//a[@href='/tasks/#{task.id}']", text: "刪除任務").click 
-      accept_alert(text: "您確定要刪除嗎？")
-     
-      expect(page).to have_current_path(tasks_path)
-      expect(page).to have_content('任務已刪除')
-      
-    end
- 
-    let(:task) {Task.create(title:'task1', content:'content1', created_at: Time.now)}
-    let(:task_new) {Task.create(title:'task_new', content:'content_new', created_at: Time.now + 1.day)}
-    it "tasks created_at DESC on index " do
-      expect(Task.all.order('created_at DESC').pluck(:title)).to have_content([task_new.title, task.title])
-      debugger
+      def fill_data
+        within('form') do
+          fill_in 'task_title', with: task.title
+          fill_in 'task_content', with: task.content
+          fill_in 'task_start_time', with: task.start_time
+          fill_in 'task_end_time', with: task.end_time
+          find_field('task_priority').find('option[selected]').text
+          find_field('task_status').find('option[selected]').text
+        end
+      end
     end
   end
+
+  context 'with edit page' do
+    before do
+      visit tasks_path
+      click_link(I18n.t('task.action.update'))
+    end
+
+    describe 'Link to edit a task' do
+      it { is_expected.to have_current_path(edit_task_path(task)) }
+
+      context 'with successfuly updates a task' do
+        before do
+          fill_in 'task_title', with: 'new title'
+          click_button(I18n.t('task.action.update'))
+        end
+
+        it { is_expected.to have_content('new title') }
+        it { is_expected.to have_text(I18n.t('task.message.success_update')) }
+      end
+    end
+  end
+
+  context 'with show page' do
+    before do
+      visit tasks_path
+      click_link I18n.t('task.action.show')
+    end
+
+    describe 'Link to read a task' do
+      it { is_expected.to have_current_path(task_path(task)) }
+      it { is_expected.to have_text(I18n.t('task.h1.show_task')) }
+
+      it 'Test back to last page button' do
+        click_link I18n.t('task.action.back')
+        expect(page).to have_text(I18n.t('task.h1.index_task'))
+      end
+    end
+  end
+
+  context 'with delete the task' do
+    before do
+      visit tasks_path
+    end
+
+    describe 'Successfuly delete a task', driver: :selenium_chrome, js: true do
+      context 'with the delete task' do
+        before do
+          find(:xpath, "//a[@href='/tasks/#{task.id}']", text: I18n.t('task.action.delete')).click
+          accept_alert(text: I18n.t('task.message.confirm_delete'), title: task.title)
+        end
+
+        it { is_expected.to have_content(I18n.t('task.message.success_delete')) }
+      end
+    end
+  end
+  # context 'with task create order' do
+  # # let(:task) {Task.create(title:'task1', content:'content1', created_at: Time.now)}
+  # # let(:task_new) {Task.create(title:'task_new', content:'content_new', created_at: Time.now + 1.day)}
+  #   it "tasks created_at DESC on index " do
+  #     expect(Task.all.order('created_at DESC').pluck(:title)).to have_content([task_new.title, task.title])
+  #   end
+  # end
+
 end
