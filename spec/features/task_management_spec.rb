@@ -35,36 +35,23 @@ RSpec.describe 'task management', type: :feature do
     end
   end
 
-  context 'Update' do
-    it 'Link to edit a task' do
+  context 'with edit page' do
+    before do
       visit tasks_path
       click_link(I18n.t('task.action.update'))
+    end
+
+    it 'Link to edit a task' do
       expect(current_path).to have_content(edit_task_path(task))
     end
 
-    it 'Successfuly updates a new task' do
-      visit edit_task_path(task)
-      edit_data
+    it 'Successfuly updates a task' do
+      fill_in 'task_title', with: 'new title'
       click_button(I18n.t('task.action.update'))
-      expect_edit_task_result
-    end
-
-    def expect_edit_task_result
+      expect(page).to have_content('new title')
       expect(page).to have_text(I18n.t('task.message.success_update'))
-      expect(page).to have_text('xxx')
-      expect(page).to have_current_path(tasks_path)
     end
 
-    def edit_data
-      within('form') do
-        fill_in 'task_title', with: 'xxx'
-        fill_in 'task_content', with: task.content
-        fill_in 'task_start_time', with: task.start_time
-        fill_in 'task_end_time', with: task.end_time
-        find_field('task_priority').find('option[selected]').text
-        find_field('task_status').find('option[selected]').text
-      end
-    end
   end
 
   context 'with show page' do
