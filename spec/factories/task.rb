@@ -9,4 +9,13 @@ FactoryBot.define do
     start_time { Faker::Time.between(from: DateTime.now - 1, to: DateTime.now, format: :short) }
     end_time { Faker::Time.forward(days: 7, format: :short) }
   end
+
+  factory :new_task, class: 'Task' do
+    title { Faker::Name.name }
+    content { Faker::Lorem.paragraph }
+    status { 'waiting' }
+    priority { 'high' }
+    start_time { Faker::Time.between(from: DateTime.now - 1, to: DateTime.now, format: :short) }
+    end_time { Faker::Time.forward(days: 7, format: :short) }
+  end
 end

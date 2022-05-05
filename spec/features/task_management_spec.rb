@@ -4,6 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'task management', type: :feature do
   subject { page }
+
   let!(:task) { FactoryBot.create(:task) }
 
   context 'with new page' do
@@ -11,7 +12,7 @@ RSpec.describe 'task management', type: :feature do
       visit tasks_path
       click_link(I18n.t('task.action.create'))
     end
-    
+
     describe 'Link to creates a new task' do
       it { is_expected.to have_current_path(new_task_path) }
       it { is_expected.to have_css('form') }
@@ -93,12 +94,12 @@ RSpec.describe 'task management', type: :feature do
       end
     end
   end
-  # context 'with task create order' do
-  # # let(:task) {Task.create(title:'task1', content:'content1', created_at: Time.now)}
-  # # let(:task_new) {Task.create(title:'task_new', content:'content_new', created_at: Time.now + 1.day)}
-  #   it "tasks created_at DESC on index " do
-  #     expect(Task.all.order('created_at DESC').pluck(:title)).to have_content([task_new.title, task.title])
-  #   end
-  # end
 
+  context 'with task create order' do
+    let!(:new_task) { FactoryBot.create(:new_task) }
+
+    it 'tasks created_at DESC on index' do
+      expect(Task.all.order('created_at DESC').pluck(:title)).to have_content([new_task.title, task.title])
+    end
+  end
 end
