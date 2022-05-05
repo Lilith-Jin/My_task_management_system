@@ -6,7 +6,7 @@ FactoryBot.define do
     content { Faker::Lorem.paragraph }
     status { 'waiting' }
     priority { 'high' }
-    start_time { Faker::Time.between(from: DateTime.now - 1, to: DateTime.now, format: :short) }
+    start_time { Faker::Time.between(from: DateTime.now, to: DateTime.now + 1, format: :short) }
     end_time { Faker::Time.forward(days: 7, format: :short) }
   end
 end

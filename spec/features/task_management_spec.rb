@@ -18,6 +18,18 @@ RSpec.describe 'task management', type: :feature do
       it { is_expected.to have_css('form') }
 
       context 'wirh successfuly creates a new task' do
+        let(:last_task_fields) { get_fields(Task.last) }
+        let(:result_fields) do
+          [
+            task.title,
+            task.content,
+            task.start_time,
+            task.end_time,
+            task.priority,
+            task.status
+          ]
+        end
+
         before do
           fill_data
           click_button I18n.t('task.action.create')
@@ -25,6 +37,10 @@ RSpec.describe 'task management', type: :feature do
 
         it { is_expected.to have_content(task.title) }
         it { is_expected.to have_text(I18n.t('task.message.success_create')) }
+
+        it 'test a task in database' do
+          expect(last_task_fields).to eq(result_fields)
+        end
       end
 
       def fill_data
@@ -36,6 +52,10 @@ RSpec.describe 'task management', type: :feature do
           find_field('task_priority').find('option[selected]').text
           find_field('task_status').find('option[selected]').text
         end
+      end
+
+      def get_fields(task)
+        task.attributes.slice('title', 'content', 'start_time', 'end_time', 'priority', 'status').values
       end
     end
   end
