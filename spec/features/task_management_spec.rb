@@ -98,8 +98,13 @@ RSpec.describe 'task management', type: :feature do
   context 'with task create order' do
     let!(:new_task) { FactoryBot.create(:new_task) }
 
-    it 'tasks created_at DESC on index' do
-      expect(Task.all.order('created_at DESC').pluck(:title)).to have_content([new_task.title, task.title])
+    describe 'with task list order by create time' do
+      before do
+        visit tasks_path
+      end
+
+      it { is_expected.to have_selector('div#task_info div:nth-child(1)', text: new_task.title) }
+      it { is_expected.to have_selector('div#task_info div:nth-child(2)', text: task.title) }
     end
   end
 end
