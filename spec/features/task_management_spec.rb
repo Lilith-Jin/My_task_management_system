@@ -17,7 +17,7 @@ RSpec.describe 'task management', type: :feature do
       it { is_expected.to have_current_path(new_task_path) }
       it { is_expected.to have_css('form') }
 
-      context 'wirh successfuly creates a new task' do
+      context 'with successfuly creates a new task' do
         before do
           fill_data
           click_button I18n.t('task.action.create')
@@ -92,6 +92,19 @@ RSpec.describe 'task management', type: :feature do
 
         it { is_expected.to have_content(I18n.t('task.message.success_delete')) }
       end
+    end
+  end
+
+  context 'with task create order' do
+    let!(:new_task) { FactoryBot.create(:new_task) }
+
+    describe 'with task list order by create time' do
+      before do
+        visit tasks_path
+      end
+
+      it { is_expected.to have_selector('div#task_info div:nth-child(1)', text: new_task.title) }
+      it { is_expected.to have_selector('div#task_info div:nth-child(2)', text: task.title) }
     end
   end
 end
