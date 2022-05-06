@@ -1,14 +1,14 @@
-class TaskEndTimeValidator < ActiveModel::Validator
-	def validate(record)
-			end_time_validate(record)
-	end
-	
-	private
-	def end_time_validate(record)
-		@end_t = record.end_time
+# frozen_string_literal: true
 
-		if @end_t.present? && @end_t < Time.zone.today 
-			record.errors.add :end_time, " can't be in the past"
-		end
-	end
+class TaskEndTimeValidator < ActiveModel::Validator
+  def validate(record)
+    end_time_validate(record)
+  end
+
+  private
+
+  def end_time_validate(record)
+    end_t = record.end_time
+    record.errors.add :end_time, " can't be in the past" if end_t.present? && end_t < Time.zone.today
+  end
 end

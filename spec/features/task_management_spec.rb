@@ -17,7 +17,7 @@ RSpec.describe 'task management', type: :feature do
       it { is_expected.to have_current_path(new_task_path) }
       it { is_expected.to have_css('form') }
 
-      context 'wirh successfuly creates a new task' do
+      context 'with successfuly creates a new task' do
         let(:last_task_fields) { get_fields(Task.last) }
         let(:result_fields) do
           [
