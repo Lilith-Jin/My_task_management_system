@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Task < ApplicationRecord
-  validates :title, presence: true, on: :create
+  validates :title, presence: true
   validates :content, length: { maximum: 100, too_long: ' %{count}s only allow 100 characters ' }, presence: true
   validates :start_time, presence: true
   validates :end_time, presence: true

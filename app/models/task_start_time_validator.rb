@@ -13,10 +13,10 @@ class TaskStartTimeValidator < ActiveModel::Validator
     @end_t = record.end_time
     return unless @start_t.present? && @end_t.present? && (@start_t > @end_t)
 
-    record.errors.add :start_time, " can't be later than End time"
+    record.errors.add(:start_time, :custom_time_range_message)
   end
 
   def start_time_validate(record)
-    record.errors.add :start_time, " can't be in the past" if @start_t.present? && @start_t < Time.zone.today
+    record.errors.add(:start_time, :custom_start_time_message) if @start_t.present? && @start_t < Time.zone.today
   end
 end
