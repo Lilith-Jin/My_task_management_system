@@ -19,16 +19,7 @@ RSpec.describe 'task management', type: :feature do
 
       context 'with successfuly creates a new task' do
         let(:last_task_fields) { get_fields(Task.last) }
-        let(:result_fields) do
-          [
-            task.title,
-            task.content,
-            task.start_time,
-            task.end_time,
-            task.priority,
-            task.status
-          ]
-        end
+        let(:result_fields) { get_fields(task) }
 
         before do
           fill_data
@@ -55,7 +46,7 @@ RSpec.describe 'task management', type: :feature do
       end
 
       def get_fields(task)
-        task.attributes.slice('title', 'content', 'start_time', 'end_time', 'priority', 'status').values
+        task.attributes.values_at('title', 'content', 'start_time', 'end_time', 'priority', 'status')
       end
     end
   end
