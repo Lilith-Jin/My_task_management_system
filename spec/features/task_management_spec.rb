@@ -99,9 +99,12 @@ RSpec.describe 'task management', type: :feature do
         before do
           find(:xpath, "//a[@href='/tasks/#{task.id}']", text: I18n.t('task.action.delete')).click
           accept_alert(text: I18n.t('task.message.confirm_delete'), title: task.title)
+          has_css?('#task_list')
         end
 
         it { is_expected.to have_content(I18n.t('task.message.success_delete')) }
+        # it { expect { task.reload }.to raise_error(ActiveRecord::RecordNotFound) }
+        it { expect(Task.find_by(id: task.id)).to be_nil }
       end
     end
   end
