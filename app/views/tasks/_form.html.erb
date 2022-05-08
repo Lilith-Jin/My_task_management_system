@@ -24,8 +24,8 @@
             <%= select(:task, :priority ,[[t("task.priority.high"),"high"], [t("task.priority.mid"),"mid"], [t("task.priority.low"),"low"]])%>
           </div>
           <div class="fields flex space-x-4">
-            <%= t.label :status, t("task.column.status") %>
-            <%= select(:task, :status,[[t("task.status.waiting"),"waiting"], [t("task.status.running"),"running"], [t("task.status.done"),"done"]])%>
+            <%= t.label :state, t("task.column.state") %>
+            <%= select(:task, :state,[[t("task.state.waiting"),"waiting"], [t("task.state.running"),"running"], [t("task.state.done"),"done"]])%>
           </div>
 
           <button><%= t.submit btn_label, class:" px-6 py-2 mx-auto block rounded-md text-lg font-semibold bg-sky-600 hover:bg-sky-700 text-white cursor-pointer " %></button>

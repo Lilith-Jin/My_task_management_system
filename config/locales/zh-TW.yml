@@ -9,7 +9,7 @@
         title: 任務名稱：
         content: 任務內容：
         priority: 任務優先順序：
-        status: 任務狀態：
+        state: 任務狀態：
         start_time: 任務開始時間：
         end_time: 任務結束時間：
       action:
@@ -24,7 +24,7 @@
         mid: 中
         low: 低
 
-      status:
+      state:
         waiting: 待處理
         running: 進行中
         done: 已完成

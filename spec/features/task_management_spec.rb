@@ -34,7 +34,7 @@ RSpec.describe 'task management', type: :feature do
           fill_in 'task_start_time', with: task.start_time
           fill_in 'task_end_time', with: task.end_time
           find_field('task_priority').find('option[selected]').text
-          find_field('task_status').find('option[selected]').text
+          find_field('task_state').find('option[selected]').text
         end
       end
     end

@@ -4,7 +4,7 @@ FactoryBot.define do
   factory :task do
     title { Faker::Name.name }
     content { Faker::Lorem.paragraph }
-    status { 'waiting' }
+    state { 'waiting' }
     priority { 'high' }
     start_time { Time.at((Time.zone.now + 1.day).to_i) }
     end_time { Time.at((Time.zone.now + 5.days).to_i) }
@@ -13,7 +13,7 @@ FactoryBot.define do
   factory :new_task, class: 'Task' do
     title { Faker::Name.name }
     content { Faker::Lorem.paragraph }
-    status { 'waiting' }
+    state { 'waiting' }
     priority { 'high' }
     start_time { Time.at((Time.zone.now + 1.day).to_i) }
     end_time { Time.at((Time.zone.now + 3.day).to_i) }
@@ -22,7 +22,7 @@ FactoryBot.define do
   factory :last_task, class: 'Task' do
     title { Faker::Name.name }
     content { Faker::Lorem.paragraph }
-    status { 'waiting' }
+    state { 'waiting' }
     priority { 'high' }
     start_time { Time.at((Time.zone.now + 1.day).to_i) }
     end_time { Time.at((Time.zone.now + 2.day).to_i) }

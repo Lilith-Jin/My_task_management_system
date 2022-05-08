@@ -1,25 +1,36 @@
 <div class="md:container md:mx-auto" id="task_list">
-  <div class="font-bold text-6xl text-blue-500"><%=t("task.h1.index_task")%></div>
-  <div class="mb-2 mt-2">
-   <button class="px-6 py-2 text-xl rounded-lg w-1/8 bg-sky-600 hover:bg-sky-700 text-white"> <%= link_to t("task.action.create"), new_task_path %></button>
-  </div>
-  <div class="grid grid-flow-row auto-rows-max border-2 px-6" id="task_info">
-  <% @tasks.each do |task|%>
-    <div id="task_card">
-      <div class="py-4 text-4xl font-medium" id="task_title">
-        <%=t("task.column.title")%><%= task.title%>
-      </div>
-      <div class="space-y-2 text-xl">
-        <div><%=t("task.column.content")%><%= task.content%></div>
-        <div><%=t("task.column.priority")%><%= t("task.priority.#{task.priority}")%></div>
-        <div><%=t("task.column.status")%><%= t("task.status.#{task.status}")%></div>
-        <div><%=t("task.column.start_time")%><%= task.start_time.to_fs(:short)%></div>
-        <div><%=t("task.column.end_time")%><%= task.end_time.to_fs(:short)%></div>
-        <button class="px-6 py-2 rounded-lg w-1/8 bg-sky-600 hover:bg-sky-700 text-white"><%= link_to t("task.action.show"), task_path(task)%></button>
-        <button class="px-6 py-2 rounded-lg w-1/8 bg-sky-600 hover:bg-sky-700 text-white"><%= link_to t("task.action.update"), edit_task_path(task)%></button>
-        <button class="px-6 py-2 rounded-lg w-1/8 bg-gray-400 hover:bg-gray-500 text-white"><%= link_to t("task.action.delete"), task_path(task), id: 'delete-task', data: { "turbo-method": :delete, "turbo-confirm":t("task.message.confirm_delete") }%></button>
-      </div>
+  <div id="title-search-field">
+    <%= search_form_for @q do |f| %>
+      <%= f.label :title_cont, '請輸入任務名稱' %>
+      <%= f.search_field :title_cont %>
+     
+
+      <%= f.label :state_eq, '請輸入任務狀態' %>
+      <%= f.select :state_eq, Task.states.to_a.map { |w| [w[0].humanize, w[1]] }, {:include_blank => t('activerecord.attributes.task.state')} %>
+      <button class="px-6 py-2 rounded-lg w-1/8 bg-sky-600 hover:bg-sky-700 text-white"><%= f.submit '搜尋' %></button>
+    <% end %>
+    <div class="font-bold text-6xl text-blue-500"><%=t("task.h1.index_task")%></div>
+    <div class="mb-2 mt-2">
+      <button class="px-6 py-2 text-xl rounded-lg w-1/8 bg-sky-600 hover:bg-sky-700 text-white"> <%= link_to t("task.action.create"), new_task_path %></button>
     </div>
-  <% end %>
-  </div>
+    <div class="grid grid-flow-row auto-rows-max border-2 px-6" id="task_info">
+    <% @tasks.each do |task|%>
+      <div id="task_card">
+        <div class="py-4 text-4xl font-medium" id="task_title">
+          <%=t("task.column.title")%><%= task.title%>
+        </div>
+        <div class="space-y-2 text-xl">
+          <div><%=t("task.column.content")%><%= task.content%></div>
+          <div><%=t("task.column.priority")%><%= t("task.priority.#{task.priority}")%></div>
+          <div><%=t("task.column.state")%><%= t("task.state.#{task.state}")%></div>
+          <div><%=t("task.column.start_time")%><%= task.start_time.to_fs(:short)%></div>
+          <div><%=t("task.column.end_time")%><%= task.end_time.to_fs(:short)%></div>
+          <button class="px-6 py-2 rounded-lg w-1/8 bg-sky-600 hover:bg-sky-700 text-white"><%= link_to t("task.action.show"), task_path(task)%></button>
+          <button class="px-6 py-2 rounded-lg w-1/8 bg-sky-600 hover:bg-sky-700 text-white"><%= link_to t("task.action.update"), edit_task_path(task)%></button>
+          <button class="px-6 py-2 rounded-lg w-1/8 bg-gray-400 hover:bg-gray-500 text-white"><%= link_to t("task.action.delete"), task_path(task), id: 'delete-task', data: { "turbo-method": :delete, "turbo-confirm":t("task.message.confirm_delete") }%></button>
+        </div>
+      </div>
+    <% end %>
+    </div>
+  </div>  
 </div>
