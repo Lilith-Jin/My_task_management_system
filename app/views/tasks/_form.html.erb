@@ -1,35 +1,43 @@
-
-  <div class="bg-indigo-50 min-h-screen md:px-20 pt-6">
-    <div class=" bg-white rounded-md px-6 py-10 max-w-2xl mx-auto">
-      <%= form_with(model: task) do |t| %>
-        <div class="space-y-4">
-          <div class="fields flex space-x-4">
-            <%= t.label :title, t("task.column.title"), class: "text-lx" %>
-            <%= t.text_field :title, class:"ml-2 outline-none py-1 px-2 text-md border-2 rounded-md", placeholder:"請輸入標題" %>
-          </div>
-          <div class="fields flex space-x-4">
-            <%= t.label :content,t("task.column.content"), class: "text-lx " %>
-            <%= t.text_area :content , class:"ml-2 outline-none py-1 px-2 text-md border-2 rounded-md", placeholder:"請輸入內容"%>
-          </div>
-          <div class="fields flex space-x-4">
-            <%= t.label :start_time, t("task.column.start_time") %>
-            <%= t.datetime_field :start_time, class:"ml-2 outline-none py-1 px-2 text-md border-2 rounded-md" %>
-          </div>
-          <div class="fields flex space-x-4">
-            <%= t.label :end_time, t("task.column.end_time") %>
-            <%= t.datetime_field :end_time, class:"ml-2 outline-none py-1 px-2 text-md border-2 rounded-md" %>
-          </div>
-          <div class="fields flex space-x-4">
-            <%= t.label :priority, t("task.column.priority") %>
-            <%= select(:task, :priority ,[[t("task.priority.high"),"high"], [t("task.priority.mid"),"mid"], [t("task.priority.low"),"low"]])%>
-          </div>
-          <div class="fields flex space-x-4">
-            <%= t.label :status, t("task.column.status") %>
-            <%= select(:task, :status,[[t("task.status.waiting"),"waiting"], [t("task.status.running"),"running"], [t("task.status.done"),"done"]])%>
-          </div>
-
-          <button><%= t.submit btn_label, class:" px-6 py-2 mx-auto block rounded-md text-lg font-semibold bg-sky-600 hover:bg-sky-700 text-white cursor-pointer " %></button>
+<div class="bg-indigo-50 min-h-screen md:px-20 pt-6">
+  <div class=" bg-white rounded-md px-6 py-10 max-w-2xl mx-auto">
+    <%= form_with(model: task, data: {turbo: false}) do |t| %>
+      <% if task.errors.any? %>
+        <div id="error_explanation">
+          <ul>
+          <% task.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+          </ul>
         </div>
       <% end %>
-    </div>
+      <div class="space-y-4">
+        <div class="fields flex space-x-4">
+          <%= t.label :title, t("task.column.title"), class: "text-lx" %>
+          <%= t.text_field :title, class:"ml-2 outline-none py-1 px-2 text-md border-2 rounded-md", placeholder:"請輸入標題" %>
+        </div>
+        <div class="fields flex space-x-4">
+          <%= t.label :content,t("task.column.content"), class: "text-lx " %>
+          <%= t.text_area :content , class:"ml-2 outline-none py-1 px-2 text-md border-2 rounded-md", placeholder:"請輸入內容"%>
+        </div>
+        <div class="fields flex space-x-4">
+          <%= t.label :start_time, t("task.column.start_time") %>
+          <%= t.datetime_field :start_time, class:"ml-2 outline-none py-1 px-2 text-md border-2 rounded-md" %>
+        </div>
+        <div class="fields flex space-x-4">
+          <%= t.label :end_time, t("task.column.end_time") %>
+          <%= t.datetime_field :end_time, class:"ml-2 outline-none py-1 px-2 text-md border-2 rounded-md" %>
+        </div>
+        <div class="fields flex space-x-4">
+          <%= t.label :priority, t("task.column.priority") %>
+          <%= select(:task, :priority ,[[t("task.priority.high"),"high"], [t("task.priority.mid"),"mid"], [t("task.priority.low"),"low"]])%>
+        </div>
+        <div class="fields flex space-x-4">
+          <%= t.label :status, t("task.column.status") %>
+          <%= select(:task, :status,[[t("task.status.waiting"),"waiting"], [t("task.status.running"),"running"], [t("task.status.done"),"done"]])%>
+        </div>
+
+        <button><%= t.submit btn_label, class:" px-6 py-2 mx-auto block rounded-md text-lg font-semibold bg-sky-600 hover:bg-sky-700 text-white cursor-pointer " %></button>
+      </div>
+    <% end %>
   </div>
+</div>
