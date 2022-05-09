@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Task, type: :model do
-  describe 'with task validation' do
+  describe 'with task modle logic' do
     subject { FactoryBot.build(:task, add_attrs) }
 
     context 'with task validation' do
@@ -41,5 +41,27 @@ RSpec.describe Task, type: :model do
 
       it { is_expected.not_to be_valid }
     end
-  end
+
+    context 'when input task_title on search field' do
+      it 'with successfuly match the task title' do
+        @params = {}
+        @params[:q] = { title_cont: 'task' }
+        @q = Task.ransack(@params)
+        @tasks = @q.result
+        expect(@tasks) == ({ title: 'task' })
+      end
+    end
+
+    context 'when select the task state on select field' do
+      it 'with successfuly match the task state' do
+        @params = {}
+        @params[:q] = { state_eq: Task.states }
+        debugger
+        @q = Task.ransack(@params)
+        @tasks = @q.result
+        expect(@tasks) == ({ state: Task.states })
+      end
+    end
+    
+  end  
 end
