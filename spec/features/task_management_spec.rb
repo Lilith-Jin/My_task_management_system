@@ -121,4 +121,19 @@ RSpec.describe 'task management', type: :feature do
       it { is_expected.to have_selector('div#task_info div:nth-child(2)', text: task.title) }
     end
   end
+
+  context 'with task list order by end_time' do
+    let!(:new_task) { FactoryBot.create(:new_task) }
+    let!(:last_task) { FactoryBot.create(:last_task) }
+
+    describe 'order by create time' do
+      before do
+        visit tasks_path
+      end
+
+      it { is_expected.to have_selector('div#task_info div:nth-child(1)', text: last_task.title) }
+      it { is_expected.to have_selector('div#task_info div:nth-child(2)', text: new_task.title) }
+      it { is_expected.to have_selector('div#task_info div:nth-child(3)', text: task.title) }
+    end
+  end
 end
