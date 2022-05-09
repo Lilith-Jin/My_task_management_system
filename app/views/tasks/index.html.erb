@@ -1,13 +1,15 @@
 <div class="md:container md:mx-auto" id="task_list">
-  <div id="title-search-field">
+  <div class="space-y-2 text-xl" id="search-field">
     <%= search_form_for @q do |f| %>
-      <%= f.label :title_cont, '請輸入任務名稱' %>
+      <%= f.label :title_cont, t("task.search.title") %>
       <%= f.search_field :title_cont %>
-     
-      <%= f.label :state_eq, '請選擇任務狀態' %>
+
+      <%= f.label :state_eq, t("task.search.state") %>
       <%= f.select :state_eq, Task.i18n_state%>
       <button class="px-6 py-2 rounded-lg w-1/8 bg-sky-600 hover:bg-sky-700 text-white"><%= f.submit '搜尋' %></button>
     <% end %>
+  </div>
+  <div id="task-form">
     <div class="font-bold text-6xl text-blue-500"><%=t("task.h1.index_task")%></div>
     <div class="mb-2 mt-2">
       <button class="px-6 py-2 text-xl rounded-lg w-1/8 bg-sky-600 hover:bg-sky-700 text-white"> <%= link_to t("task.action.create"), new_task_path %></button>
