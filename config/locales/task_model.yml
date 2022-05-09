@@ -7,7 +7,7 @@
           mid: 中
           low: 低
 
-        state:
+        states:
           waiting: 待處理
           running: 進行中
           done: 已完成
