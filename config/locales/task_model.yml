@@ -1,7 +1,7 @@
 "zh-TW":
   activerecord:
     attributes:
-      task: 
+      task:
         title: 任務名稱
         content: 任務內容
         start_time: 任務開始時間
@@ -12,20 +12,11 @@
           mid: 中
           low: 低
 
-        states:
+        state:
           waiting: 待處理
           running: 進行中
           done: 已完成
 
-    errors:
-      models:
-        task:
-          attributes:
-            start_time: 
-              custom_time_range_message: 不能晚於任務結束時間
-              custom_start_time_message: 不能為過去時間，請重新選擇
-            end_time:
-              custom_end_time_message: 不能為過去時間，請重新選擇
 
 
       

@@ -4,9 +4,8 @@
       <%= f.label :title_cont, '請輸入任務名稱' %>
       <%= f.search_field :title_cont %>
      
-
       <%= f.label :state_eq, '請選擇任務狀態' %>
-      <%= f.select :state_eq, Task.states.to_a.map { |w| [w[0].humanize, w[1]] }, {:include_blank => t('activerecord.attributes.task.sates')} %>
+      <%= f.select :state_eq, Task.i18n_state%>
       <button class="px-6 py-2 rounded-lg w-1/8 bg-sky-600 hover:bg-sky-700 text-white"><%= f.submit '搜尋' %></button>
     <% end %>
     <div class="font-bold text-6xl text-blue-500"><%=t("task.h1.index_task")%></div>
