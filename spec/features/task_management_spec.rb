@@ -18,6 +18,9 @@ RSpec.describe 'task management', type: :feature do
       it { is_expected.to have_css('form') }
 
       context 'with successfuly creates a new task' do
+        let(:last_task_fields) { get_fields(Task.last) }
+        let(:result_fields) { get_fields(task) }
+
         before do
           fill_data
           click_button I18n.t('task.action.create')
@@ -25,6 +28,10 @@ RSpec.describe 'task management', type: :feature do
 
         it { is_expected.to have_content(task.title) }
         it { is_expected.to have_text(I18n.t('task.message.success_create')) }
+
+        it 'test a task in database' do
+          expect(last_task_fields).to eq(result_fields)
+        end
       end
 
       def fill_data
@@ -36,6 +43,10 @@ RSpec.describe 'task management', type: :feature do
           find_field('task_priority').find('option[selected]').text
           find_field('task_state').find('option[selected]').text
         end
+      end
+
+      def get_fields(task)
+        task.attributes.values_at('title', 'content', 'start_time', 'end_time', 'priority', 'status')
       end
     end
   end
@@ -88,9 +99,12 @@ RSpec.describe 'task management', type: :feature do
         before do
           find(:xpath, "//a[@href='/tasks/#{task.id}']", text: I18n.t('task.action.delete')).click
           accept_alert(text: I18n.t('task.message.confirm_delete'), title: task.title)
+          has_css?('#task_list')
         end
 
         it { is_expected.to have_content(I18n.t('task.message.success_delete')) }
+        # it { expect { task.reload }.to raise_error(ActiveRecord::RecordNotFound) }
+        it { expect(Task.find_by(id: task.id)).to be_nil }
       end
     end
   end
