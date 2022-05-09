@@ -6,8 +6,8 @@ FactoryBot.define do
     content { Faker::Lorem.paragraph }
     status { 'waiting' }
     priority { 'high' }
-    start_time { Time.at((Time.zone.now + 1.day).to_i) }
-    end_time { Time.at((Time.zone.now + 3.days).to_i) }
+    start_time { Time.zone.at(1.day.from_now.to_i) }
+    end_time { Time.zone.at(3.days.from_now.to_i) }
   end
 
   factory :new_task, class: 'Task' do
@@ -15,7 +15,7 @@ FactoryBot.define do
     content { Faker::Lorem.paragraph }
     status { 'waiting' }
     priority { 'high' }
-    start_time { Time.at((Time.zone.now + 1.day).to_i) }
-    end_time { Time.at((Time.zone.now + 3.days).to_i) }
+    start_time { Time.zone.at(1.day.from_now.to_i) }
+    end_time { Time.zone.at(3.days.from_now.to_i) }
   end
 end
