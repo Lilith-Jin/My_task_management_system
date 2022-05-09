@@ -46,7 +46,7 @@ RSpec.describe 'task management', type: :feature do
       end
 
       def get_fields(task)
-        task.attributes.values_at('title', 'content', 'start_time', 'end_time', 'priority', 'status')
+        task.attributes.values_at('title', 'content', 'start_time', 'end_time', 'priority', 'state')
       end
     end
   end
@@ -135,5 +135,35 @@ RSpec.describe 'task management', type: :feature do
       it { is_expected.to have_selector('div#task_info div:nth-child(2)', text: new_task.title) }
       it { is_expected.to have_selector('div#task_info div:nth-child(3)', text: task.title) }
     end
+  end
+
+  context 'when search task by the search field' do
+    # let { FactoryBot.create_list(:task, 10) }#Search data
+    describe 'with input content match task title' do 
+      before do
+        visit tasks_path
+        within('form') do
+          fill_in 'q_title_cont', with: task.title
+        end
+        click_button I18n.t('task.search_button')
+      end
+      
+      it { is_expected.to have_content(task.title)}
+    end
+
+    describe 'with input content match task state ' do 
+      before do
+        visit tasks_path
+        # find(:select, '#q_state_eq', selected: ['waiting', 'running', 'done'])
+
+        find_field('q_state_eq').select("待處理")
+        # find(selector, visible: false).text('option[selected]')
+        # find_field('q_state_eq').all(:option, selected: true)
+        click_button I18n.t('task.search_button')
+      end
+      
+      it { is_expected.to have_content(I18n.t("task.state.#{task.state}")) }
+    end
+
   end
 end

@@ -6,7 +6,7 @@
 
       <%= f.label :state_eq, t("task.search.state") %>
       <%= f.select :state_eq, Task.i18n_state%>
-      <button class="px-6 py-2 rounded-lg w-1/8 bg-sky-600 hover:bg-sky-700 text-white"><%= f.submit '搜尋' %></button>
+      <button class="px-6 py-2 rounded-lg w-1/8 bg-sky-600 hover:bg-sky-700 text-white"><%= f.submit t("task.search_button") %></button>
     <% end %>
   </div>
   <div id="task-form">

@@ -3,6 +3,7 @@
     search:
       title: 請輸入任務名稱
       state: 請選擇任務狀態 
+    search_button: 搜尋
     h1:
       index_task: 任務列表
       new_task: 新增任務
