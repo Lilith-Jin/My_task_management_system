@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Task, type: :model do
   describe 'with task modle logic' do
-    subject { FactoryBot.build(:task, add_attrs) }
+    subject { build(:task, add_attrs) }
 
     context 'with task validation' do
       let(:add_attrs) { {} }
@@ -41,25 +41,43 @@ RSpec.describe Task, type: :model do
 
       it { is_expected.not_to be_valid }
     end
+  end
 
-    context 'when input task_title on search field' do
-      it 'with successfuly match the task title' do
-        @params = {}
-        @params[:q] = { title_cont: 'task' }
-        @q = described_class.ransack(@params)
-        @tasks = @q.result
-        expect(@tasks) == ({ title: 'task' })
-      end
+  describe 'test search condition of task title' do
+    # output
+    subject(:search) { described_class.ransack(params).result }
+    # parameter
+
+    let(:params) { { title_cont: 'task' } }
+
+    context 'when input right task_title on search field' do
+      let!(:task) { create(:task, title: 'task') }
+
+      it { is_expected.to eq([task]) }
     end
 
-    context 'when select the task state on select field' do
-      it 'with successfuly match the task state' do
-        @params = {}
-        @params[:q] = { state_eq: described_class.states }
-        @q = described_class.ransack(@params)
-        @tasks = @q.result
-        expect(@tasks) == ({ state: described_class.states })
-      end
+    context 'when input wrong task_title on search field' do
+      let!(:new_task) { create(:new_task, title: 'abc') }
+
+      it { is_expected.not_to eq([new_task]) }
+    end
+  end
+
+  describe 'test search condition of task state' do
+    subject(:search) { described_class.ransack(params).result }
+
+    let!(:params) { { state_eq: 'waiting' } }
+
+    context 'when select title_state on search field to match' do
+      let(:task) { create(:task, state: 'waiting') }
+
+      it { is_expected.to eq([task]) }
+    end
+
+    context 'when select title_state on search field not to match' do
+      let(:new_task) { create(:new_task, state: 'running') }
+
+      it { is_expected.not_to eq([new_task]) }
     end
   end
 end

@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe 'task management', type: :feature do
   subject { page }
 
-  let!(:task) { FactoryBot.create(:task) }
+  let!(:task) { create(:task) }
 
   context 'with new page' do
     before do
@@ -110,7 +110,7 @@ RSpec.describe 'task management', type: :feature do
   end
 
   context 'with task create order' do
-    let!(:new_task) { FactoryBot.create(:new_task) }
+    let!(:new_task) { create(:new_task) }
 
     describe 'with task list order by create time' do
       before do
@@ -123,8 +123,8 @@ RSpec.describe 'task management', type: :feature do
   end
 
   context 'with task list order by end_time' do
-    let!(:new_task) { FactoryBot.create(:new_task) }
-    let!(:last_task) { FactoryBot.create(:last_task) }
+    let!(:new_task) { create(:new_task) }
+    let!(:last_task) { create(:last_task) }
 
     describe 'order by create time' do
       before do
@@ -139,8 +139,8 @@ RSpec.describe 'task management', type: :feature do
 
   context 'when search task by the search field' do
     # Search data
-    let!(:new_task) { FactoryBot.create(:new_task, title: 'second task', state: 'running') }
-    let!(:last_task) { FactoryBot.create(:last_task, title: 'third task', state: 'running') }
+    let!(:new_task) { create(:new_task, title: 'second task', state: 'running') }
+    let!(:last_task) { create(:last_task, title: 'third task', state: 'running') }
 
     describe 'with task title input content match the output' do
       before do
