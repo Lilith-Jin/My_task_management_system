@@ -5,7 +5,7 @@
       <%= f.search_field :title_cont %>
 
       <%= f.label :state_eq, t("task.search.state") %>
-      <%= f.select :state_eq, Task.i18n_state, id:'select_option', :include_blank => true%>
+      <%= f.select :state_eq, task_state_options(Task.states), id:'select_option', :include_blank => true%>
       <button class="px-6 py-2 rounded-lg w-1/8 bg-sky-600 hover:bg-sky-700 text-white"><%= f.submit t("task.search_button") %></button>
     <% end %>
   </div>

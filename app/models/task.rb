@@ -9,9 +9,4 @@ class Task < ApplicationRecord
   enum :priority, %i[high mid low], default: :high
   enum :state, %i[waiting running done], default: :waiting
 
-  def self.i18n_state
-    states.map do |state, idx|
-      [I18n.t(state, scope: 'task.state'), idx]
-    end
-  end
 end
