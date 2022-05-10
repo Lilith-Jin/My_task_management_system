@@ -2,11 +2,10 @@
 
 class TasksController < ApplicationController
   before_action :find_task, only: %i[edit update show destroy]
-  
+
   def index
     @q = Task.ransack(params[:q])
     @tasks = @q.result(distinct: true).order('end_time')
-    
   end
 
   def show; end
@@ -50,5 +49,4 @@ class TasksController < ApplicationController
   def find_task
     @task = Task.find(params[:id])
   end
-
 end

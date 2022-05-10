@@ -46,7 +46,7 @@ RSpec.describe Task, type: :model do
       it 'with successfuly match the task title' do
         @params = {}
         @params[:q] = { title_cont: 'task' }
-        @q = Task.ransack(@params)
+        @q = described_class.ransack(@params)
         @tasks = @q.result
         expect(@tasks) == ({ title: 'task' })
       end
@@ -55,13 +55,11 @@ RSpec.describe Task, type: :model do
     context 'when select the task state on select field' do
       it 'with successfuly match the task state' do
         @params = {}
-        @params[:q] = { state_eq: Task.states }
-        debugger
-        @q = Task.ransack(@params)
+        @params[:q] = { state_eq: described_class.states }
+        @q = described_class.ransack(@params)
         @tasks = @q.result
-        expect(@tasks) == ({ state: Task.states })
+        expect(@tasks) == ({ state: described_class.states })
       end
     end
-    
-  end  
+  end
 end

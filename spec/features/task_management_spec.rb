@@ -138,8 +138,11 @@ RSpec.describe 'task management', type: :feature do
   end
 
   context 'when search task by the search field' do
-    # let { FactoryBot.create_list(:task, 10) }#Search data
-    describe 'with input content match task title' do 
+    # Search data
+    let!(:new_task) { FactoryBot.create(:new_task, title: 'second task', state: 'running') }
+    let!(:last_task) { FactoryBot.create(:last_task, title: 'third task', state: 'running') }
+
+    describe 'with task title input content match the output' do
       before do
         visit tasks_path
         within('form') do
@@ -147,23 +150,26 @@ RSpec.describe 'task management', type: :feature do
         end
         click_button I18n.t('task.search_button')
       end
-      
-      it { is_expected.to have_content(task.title)}
+
+      it { is_expected.to have_content(task.title) }
+      it { is_expected.to have_no_content('second task') }
     end
 
-    describe 'with input content match task state ' do 
+    describe 'with select task state option match output' do
       before do
         visit tasks_path
-        # find(:select, '#q_state_eq', selected: ['waiting', 'running', 'done'])
-
-        find_field('q_state_eq').select("待處理")
-        # find(selector, visible: false).text('option[selected]')
-        # find_field('q_state_eq').all(:option, selected: true)
+        page.find_field('q_state_eq').find('option[value="0"]').select_option
         click_button I18n.t('task.search_button')
       end
-      
-      it { is_expected.to have_content(I18n.t("task.state.#{task.state}")) }
-    end
 
+      it { is_expected.to have_css('#task_card', text: task.title) }
+      it { is_expected.not_to have_css('#task_card', text: new_task.title) }
+
+      it 'only have one task to match select' do
+        expect(all('#task_card').count).to eq(1)
+      end
+      # it { is_expected.to have_selector('div#task_info div:nth-child(1)') }
+      # it { is_expected.to have_selector('div#task_info div:nth-child(2)') }
+    end
   end
 end

@@ -11,8 +11,7 @@ class Task < ApplicationRecord
 
   def self.i18n_state
     states.map do |state, idx|
-      [I18n.t(state, scope:'task.state'), idx]
+      [I18n.t(state, scope: 'task.state'), idx]
     end
   end
-
 end
