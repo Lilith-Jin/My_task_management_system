@@ -57,12 +57,12 @@ group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails', '~> 6.2'
   gem 'faker', '~> 2.20'
+  gem 'kaminari', '~> 1.2', '>= 1.2.2'
   gem 'rspec-rails'
   gem 'rubocop', '~> 1.28', '>= 1.28.2', require: false
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
-  gem 'kaminari', '~> 1.2', '>= 1.2.2'
 end
 
 group :development do
