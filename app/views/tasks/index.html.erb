@@ -33,6 +33,7 @@
             <td><%= t("task.state.#{task.state}")%></td>
             <td><%= task.start_time.to_fs(:short)%></td>
             <td><%= task.end_time.to_fs(:short)%></td>
+            <td><button class="px-6 py-2 rounded-lg w-1/8 bg-sky-600 hover:bg-sky-700 text-white"><%= link_to t("task.action.show"), task_path(task)%></button></td>
             <td><button class="px-6 py-2 rounded-lg w-1/8 bg-sky-600 hover:bg-sky-700 text-white"><%= link_to t("task.action.update"), edit_task_path(task)%></button></td>
             <td><button class="px-6 py-2 rounded-lg w-1/8 bg-gray-400 hover:bg-gray-500 text-white"><%= link_to t("task.action.delete"), task_path(task), id: 'delete-task', data: { "turbo-method": :delete, "turbo-confirm":t("task.message.confirm_delete") }%></button></td>
           </tr>
