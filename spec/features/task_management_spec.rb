@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe 'task management', type: :feature do
   subject { page }
 
-  let!(:task) { FactoryBot.create(:task) }
+  let!(:task) { create(:task) }
 
   context 'with new page' do
     before do
@@ -41,12 +41,12 @@ RSpec.describe 'task management', type: :feature do
           fill_in 'task_start_time', with: task.start_time
           fill_in 'task_end_time', with: task.end_time
           find_field('task_priority').find('option[selected]').text
-          find_field('task_status').find('option[selected]').text
+          find_field('task_state').find('option[selected]').text
         end
       end
 
       def get_fields(task)
-        task.attributes.values_at('title', 'content', 'start_time', 'end_time', 'priority', 'status')
+        task.attributes.values_at('title', 'content', 'start_time', 'end_time', 'priority', 'state')
       end
     end
   end
@@ -110,7 +110,7 @@ RSpec.describe 'task management', type: :feature do
   end
 
   context 'with task create order' do
-    let!(:new_task) { FactoryBot.create(:new_task) }
+    let!(:new_task) { create(:new_task) }
 
     describe 'with task list order by create time' do
       before do
@@ -123,8 +123,8 @@ RSpec.describe 'task management', type: :feature do
   end
 
   context 'with task list order by end_time' do
-    let!(:new_task) { FactoryBot.create(:new_task) }
-    let!(:last_task) { FactoryBot.create(:last_task) }
+    let!(:new_task) { create(:new_task) }
+    let!(:last_task) { create(:last_task) }
 
     describe 'order by create time' do
       before do
@@ -134,6 +134,42 @@ RSpec.describe 'task management', type: :feature do
       it { is_expected.to have_selector('div#task_info div:nth-child(1)', text: last_task.title) }
       it { is_expected.to have_selector('div#task_info div:nth-child(2)', text: new_task.title) }
       it { is_expected.to have_selector('div#task_info div:nth-child(3)', text: task.title) }
+    end
+  end
+
+  context 'when search task by the search field' do
+    # Search data
+    let!(:new_task) { create(:new_task, title: 'second task', state: 'running') }
+    let!(:last_task) { create(:last_task, title: 'third task', state: 'running') }
+
+    describe 'with task title input content match the output' do
+      before do
+        visit tasks_path
+        within('form') do
+          fill_in 'q_title_cont', with: task.title
+        end
+        click_button I18n.t('task.search_button')
+      end
+
+      it { is_expected.to have_content(task.title) }
+      it { is_expected.to have_no_content('second task') }
+    end
+
+    describe 'with select task state option match output' do
+      before do
+        visit tasks_path
+        page.find_field('q_state_eq').find('option[value="0"]').select_option
+        click_button I18n.t('task.search_button')
+      end
+
+      it { is_expected.to have_css('#task_card', text: task.title) }
+      it { is_expected.not_to have_css('#task_card', text: new_task.title) }
+
+      it 'only have one task to match select' do
+        expect(all('#task_card').count).to eq(1)
+      end
+      # it { is_expected.to have_selector('div#task_info div:nth-child(1)') }
+      # it { is_expected.to have_selector('div#task_info div:nth-child(2)') }
     end
   end
 end

@@ -3,8 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe Task, type: :model do
-  describe 'with task validation' do
-    subject { FactoryBot.build(:task, add_attrs) }
+  describe 'with task modle logic' do
+    subject { build(:task, add_attrs) }
 
     context 'with task validation' do
       let(:add_attrs) { {} }
@@ -40,6 +40,44 @@ RSpec.describe Task, type: :model do
       let(:add_attrs) { { start_time: Time.zone.at(5.days.from_now.to_i) } }
 
       it { is_expected.not_to be_valid }
+    end
+  end
+
+  describe 'test search condition of task title' do
+    # output
+    subject(:search) { described_class.ransack(params).result }
+    # parameter
+
+    let(:params) { { title_cont: 'task' } }
+
+    context 'when input right task_title on search field' do
+      let!(:task) { create(:task, title: 'task') }
+
+      it { is_expected.to eq([task]) }
+    end
+
+    context 'when input wrong task_title on search field' do
+      let!(:new_task) { create(:new_task, title: 'abc') }
+
+      it { is_expected.not_to eq([new_task]) }
+    end
+  end
+
+  describe 'test search condition of task state' do
+    subject(:search) { described_class.ransack(params).result }
+
+    let!(:params) { { state_eq: 'waiting' } }
+
+    context 'when select title_state on search field to match' do
+      let(:task) { create(:task, state: 'waiting') }
+
+      it { is_expected.to eq([task]) }
+    end
+
+    context 'when select title_state on search field not to match' do
+      let(:new_task) { create(:new_task, state: 'running') }
+
+      it { is_expected.not_to eq([new_task]) }
     end
   end
 end

@@ -2,8 +2,10 @@
 
 class TasksController < ApplicationController
   before_action :find_task, only: %i[edit update show destroy]
+
   def index
-    @tasks = Task.all.order('end_time')
+    @q = Task.ransack(params[:q])
+    @tasks = @q.result(distinct: true).order('end_time')
   end
 
   def show; end
@@ -41,7 +43,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :content, :priority, :status, :start_time, :end_time)
+    params.require(:task).permit(:title, :content, :priority, :state, :start_time, :end_time)
   end
 
   def find_task

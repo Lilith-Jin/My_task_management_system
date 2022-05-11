@@ -7,5 +7,5 @@ class Task < ApplicationRecord
   validates_comparison_of :start_time, greater_than: Time.zone.today, allow_nil: false
 
   enum :priority, %i[high mid low], default: :high
-  enum :status, %i[waiting running done], default: :waiting
+  enum :state, %i[waiting running done], default: :waiting
 end
