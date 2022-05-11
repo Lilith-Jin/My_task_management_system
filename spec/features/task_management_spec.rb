@@ -168,8 +168,22 @@ RSpec.describe 'task management', type: :feature do
       it 'only have one task to match select' do
         expect(all('#task_card').count).to eq(1)
       end
-      # it { is_expected.to have_selector('div#task_info div:nth-child(1)') }
-      # it { is_expected.to have_selector('div#task_info div:nth-child(2)') }
+
+    end
+  end
+
+  describe 'when sort the task ' do 
+    let!(:new_task) { create(:new_task, end_time: Time.zone.at(6.days.from_now.to_i)) }
+    let!(:last_task) { create(:last_task,end_time: Time.zone.at(7.days.from_now.to_i) ) }
+
+    context 'when sort task by priority asc' do 
+      before do
+        visit tasks_path
+        find('#sort_priority', text: I18n.t('task.column.priority')).click
+      end
+      it { is_expected.to have_selector('tr#task_card:nth-child(1)', text: I18n.t("task.priority.#{task.priority}"))}
+      it { is_expected.to have_selector('tr#task_card:nth-child(2)', text: I18n.t("task.priority.#{new_task.priority}"))}
+      it { is_expected.to have_selector('tr#task_card:nth-child(3)', text: I18n.t("task.priority.#{last_task.priority}"))}
     end
   end
 end
