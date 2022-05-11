@@ -18,7 +18,7 @@
       <tr>
         <th><%=t("task.column.title")%></th>
         <th><%=t("task.column.content")%></th>
-        <th><%=t("task.column.priority")%></th>
+        <th><%=sort_link(@q, :priority, t("task.column.priority"), defalt_order: :asc) %></th>
         <th><%=t("task.column.state")%></th>
         <th><%=t("task.column.start_time")%></th>
         <th><%=t("task.column.end_time")%></th>
