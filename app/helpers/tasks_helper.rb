@@ -9,7 +9,7 @@ module TasksHelper
 
   def state_menu(states)
     states.map do |key|
-      [I18n.t(key, scope: %i[task state]), key] 
+      [I18n.t(key, scope: %i[task state]), key]
     end
   end
 

@@ -117,8 +117,8 @@ RSpec.describe 'task management', type: :feature do
         visit tasks_path
       end
 
-      it { is_expected.to have_selector('div#task_info div:nth-child(1)', text: new_task.title) }
-      it { is_expected.to have_selector('div#task_info div:nth-child(2)', text: task.title) }
+      it { is_expected.to have_selector('tr#task_card:nth-child(1)', text: new_task.title) }
+      it { is_expected.to have_selector('tr#task_card:nth-child(2)', text: task.title) }
     end
   end
 
@@ -131,16 +131,15 @@ RSpec.describe 'task management', type: :feature do
         visit tasks_path
       end
 
-      it { is_expected.to have_selector('div#task_info div:nth-child(1)', text: last_task.title) }
-      it { is_expected.to have_selector('div#task_info div:nth-child(2)', text: new_task.title) }
-      it { is_expected.to have_selector('div#task_info div:nth-child(3)', text: task.title) }
+      it { is_expected.to have_selector('tr#task_card:nth-child(1)', text: last_task.title) }
+      it { is_expected.to have_selector('tr#task_card:nth-child(2)', text: new_task.title) }
+      it { is_expected.to have_selector('tr#task_card:nth-child(3)', text: task.title) }
     end
   end
 
   context 'when search task by the search field' do
     # Search data
     let!(:new_task) { create(:new_task, title: 'second task', state: 'running') }
-    let!(:last_task) { create(:last_task, title: 'third task', state: 'running') }
 
     describe 'with task title input content match the output' do
       before do
@@ -168,8 +167,33 @@ RSpec.describe 'task management', type: :feature do
       it 'only have one task to match select' do
         expect(all('#task_card').count).to eq(1)
       end
-      # it { is_expected.to have_selector('div#task_info div:nth-child(1)') }
-      # it { is_expected.to have_selector('div#task_info div:nth-child(2)') }
+    end
+  end
+
+  describe 'when sort the task' do
+    let!(:new_task) { create(:new_task, end_time: Time.zone.at(6.days.from_now.to_i)) }
+    let!(:last_task) { create(:last_task, end_time: Time.zone.at(7.days.from_now.to_i)) }
+
+    context 'when sort task by priority asc' do
+      before do
+        visit tasks_path
+        find('#sort_priority', text: I18n.t('task.column.priority')).click
+      end
+
+      it {
+        expect(subject).to have_selector('tr#task_card:nth-child(1)',
+                                         text: I18n.t("task.priority.#{task.priority}"))
+      }
+
+      it {
+        expect(subject).to have_selector('tr#task_card:nth-child(2)',
+                                         text: I18n.t("task.priority.#{new_task.priority}"))
+      }
+
+      it {
+        expect(subject).to have_selector('tr#task_card:nth-child(3)',
+                                         text: I18n.t("task.priority.#{last_task.priority}"))
+      }
     end
   end
 end
