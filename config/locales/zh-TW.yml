@@ -1,4 +1,6 @@
 "zh-TW":
+  home: 
+    page_title: 首頁
   task:
     search:
       title: 請輸入任務名稱
