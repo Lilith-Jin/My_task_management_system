@@ -1,6 +1,32 @@
 "zh-TW":
   home: 
     page_title: 首頁
+  activerecord:
+    attributes:
+      user:
+        name: 姓名
+        email: 信箱
+        password: 密碼
+        role:
+          admin: 管理員
+          viewer: 一般用戶
+      task:
+        title: 任務名稱
+        content: 任務內容
+        start_time: 任務開始時間
+        end_time: 任務結束時間
+        # priority: 任務優先順序
+        # state: 任務狀態
+
+        priority: 
+          high: 高
+          mid: 中
+          low: 低
+
+        state: 
+          waiting: 待處理
+          running: 進行中
+          done: 已完成
   task:
     search:
       title: 請輸入任務名稱
@@ -40,7 +66,14 @@
       success_update: 任務更新成功！
       success_delete: 任務刪除成功！
       confirm_delete: 您確定要刪除此筆任務嗎？  
+  user:
+    column:
+      role: 身份
+    role:
+      admin: 管理員
+      viewer: 一般用戶
 
+    register_button: 註冊
   views:
     pagination:
       first: "&laquo; 首頁"
@@ -48,3 +81,4 @@
       previous: "&lsaquo; 前一頁"
       next: "下一頁 &rsaquo;"
       truncate: "&hellip;"
+  
