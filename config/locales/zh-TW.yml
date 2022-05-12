@@ -77,6 +77,8 @@
       viewer: 一般用戶
 
     register_button: 註冊
+    message:
+      success_register: 註冊成功
   views:
     pagination:
       first: "&laquo; 首頁"
