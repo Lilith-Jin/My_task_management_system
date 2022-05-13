@@ -2,6 +2,6 @@
 
 class ApplicationController < ActionController::Base
     def login(user)
-		session[:session]=user.id
+	  session[:session] = user.id
 	end
 end
