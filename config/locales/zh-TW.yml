@@ -63,6 +63,7 @@
       done: 已完成
 
     message:
+      first_create: 您尚未建立任務，趕快來建立第一筆任務吧！
       success_create: 任務新增成功！
       success_update: 任務更新成功！
       success_delete: 任務刪除成功！

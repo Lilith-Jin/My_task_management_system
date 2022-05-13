@@ -9,7 +9,7 @@ end
 private
 
 def current_user
-	@current_user || User.find_by(id: [:session])
+	@current_user || User.find_by(id: session[:session])
 end
 
 def user_sign_in?
