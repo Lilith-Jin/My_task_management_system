@@ -6,7 +6,7 @@
       user:
         name: 姓名
         email: 信箱
-        password_digest: 密碼
+        password: 密碼
         password_confirmation: 確認密碼
         role:
           admin: 管理員
@@ -71,7 +71,7 @@
     column:
       name: 姓名
       email: 信箱
-      password_digest: 密碼
+      password: 密碼
       password_confirmation: 確認密碼
       role: 身份
     role:
@@ -79,11 +79,16 @@
       viewer: 一般用戶
     
     action:
+      new: 註冊
+      login: 登入
       delete: 登出
 
     register_button: 註冊
+    
     message:
       success_register: 註冊成功
+      success_login: 登入成功
+      failed_login: 帳號密碼組合不正確，請重新嘗試
   views:
     pagination:
       first: "&laquo; 首頁"

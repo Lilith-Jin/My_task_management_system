@@ -21,10 +21,19 @@
         </div>
 
         <div class="fields flex space-x-4">
-          <%= u.label :password_digest %>
-          <%= u.password_field :password_digest, class:"ml-2 outline-none py-1 px-2 text-md border-2 rounded-md" %>
-					<% if u.object.errors[:password_digest]%>
-          <span><%= u.object.errors[:password_digest][0] %></span>
+          <%= u.label :password %>
+          <%= u.password_field :password, class:"ml-2 outline-none py-1 px-2 text-md border-2 rounded-md" %>
+					<% if u.object.errors[:password]%>
+          <span><%= u.object.errors[:password][0] %></span>
+        	<% end %>
+        </div>
+
+
+        <div class="fields flex space-x-4">
+          <%= u.label :password_confirmation %>
+          <%= u.password_field :password_confirmation, class:"ml-2 outline-none py-1 px-2 text-md border-2 rounded-md" %>
+					<% if u.object.errors[:password_confirmation]%>
+          <span><%= u.object.errors[:password_confirmation][0] %></span>
         	<% end %>
         </div>
 
@@ -33,7 +42,7 @@
           <%= select(:user, :role, option_for_role_select(User.roles.keys))%>
         </div>
 
-        <button><%= u.submit  class:" px-6 py-2 mx-auto block rounded-md text-lg font-semibold bg-sky-600 hover:bg-sky-700 text-white cursor-pointer " %></button>
+        <button><%= u.submit t("user.action.new"), class:" px-6 py-2 mx-auto block rounded-md text-lg font-semibold bg-sky-600 hover:bg-sky-700 text-white cursor-pointer " %></button>
       </div>
     <% end %>
   </div>
