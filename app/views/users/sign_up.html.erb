@@ -30,7 +30,7 @@
 
         <div class="fields flex space-x-4">
           <%= u.label :role, t("user.column.role")%>
-          <%= select(:user, :role, role_menu(User.roles.keys))%>
+          <%= select(:user, :role, option_for_role_select(User.roles.keys))%>
         </div>
 
         <button><%= u.submit  class:" px-6 py-2 mx-auto block rounded-md text-lg font-semibold bg-sky-600 hover:bg-sky-700 text-white cursor-pointer " %></button>
