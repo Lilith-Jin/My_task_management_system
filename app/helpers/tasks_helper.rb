@@ -7,13 +7,13 @@ module TasksHelper
     end
   end
 
-  def state_menu(states)
+  def option_for_state_select(states)
     states.map do |key|
       [I18n.t(key, scope: %i[task state]), key]
     end
   end
 
-  def priority_menu(priorities)
+  def option_for_priority_select(priorities)
     priorities.map do |key|
       [I18n.t(key, scope: %i[task priority]), key]
     end

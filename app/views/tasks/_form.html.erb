@@ -29,11 +29,11 @@
         </div>
         <div class="fields flex space-x-4">
           <%= t.label :priority, t("task.column.priority") %>
-          <%= select(:task, :priority ,priority_menu(Task.priorities.keys))%>
+          <%= select(:task, :priority ,option_for_priority_select(Task.priorities.keys))%>
         </div>
         <div class="fields flex space-x-4">
           <%= t.label :state, t("task.column.state") %>
-          <%= select(:task, :state, state_menu(Task.states.keys))%>
+          <%= select(:task, :state, option_for_state_select(Task.states.keys))%>
         </div>
 
         <button><%= t.submit btn_label, class:" px-6 py-2 mx-auto block rounded-md text-lg font-semibold bg-sky-600 hover:bg-sky-700 text-white cursor-pointer " %></button>
