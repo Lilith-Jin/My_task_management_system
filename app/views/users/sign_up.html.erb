@@ -1,0 +1,40 @@
+<h1>會員註冊</h1>
+
+<div class="bg-indigo-50 min-h-screen md:px-20 pt-6">
+  <div class=" bg-white rounded-md px-6 py-10 max-w-2xl mx-auto">
+    <%= form_with(model: @user, url: registering_path, data: {turbo: false}) do |u| %>
+      <div class="space-y-4">
+        <div class="fields flex space-x-4">
+          <%= u.label :name, class: "text-lx" %>
+          <%= u.text_field :name, class:"ml-2 outline-none py-1 px-2 text-md border-2 rounded-md" %>
+					<% if u.object.errors[:name]%>
+          <span><%= u.object.errors[:name][0] %></span>
+        	<% end %>
+        </div>
+
+        <div class="fields flex space-x-4">
+          <%= u.label :email, class: "text-lx " %>
+          <%= u.email_field :email, class:"ml-2 outline-none py-1 px-2 text-md border-2 rounded-md"%>
+					<% if u.object.errors[:email]%>
+          <span><%= u.object.errors[:email][0] %></span>
+        	<% end %>
+        </div>
+
+        <div class="fields flex space-x-4">
+          <%= u.label :password %>
+          <%= u.password_field :password, class:"ml-2 outline-none py-1 px-2 text-md border-2 rounded-md" %>
+					<% if u.object.errors[:password]%>
+          <span><%= u.object.errors[:password][0] %></span>
+        	<% end %>
+        </div>
+
+        <div class="fields flex space-x-4">
+          <%= u.label :role, t("user.column.role")%>
+          <%= select(:user, :role, option_for_role_select(User.roles.keys))%>
+        </div>
+
+        <button><%= u.submit  class:" px-6 py-2 mx-auto block rounded-md text-lg font-semibold bg-sky-600 hover:bg-sky-700 text-white cursor-pointer " %></button>
+      </div>
+    <% end %>
+  </div>
+</div>
