@@ -2,6 +2,6 @@
 
 class HomeController < ApplicationController
   def index
-    @tasks = Task.includes(:use)
+    # @tasks = Task.includes(:user)
   end
 end

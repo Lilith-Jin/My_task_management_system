@@ -20,7 +20,7 @@
           <%= u.password_field :password_confirmation, class:"ml-2 outline-none py-1 px-2 text-md border-2 rounded-md" %>
         </div>
 
-        <button><%= u.submit '登入', class:" px-6 py-2 mx-auto block rounded-md text-lg font-semibold bg-sky-600 hover:bg-sky-700 text-white cursor-pointer " %></button>
+        <button><%= u.submit t("user.action.login"), class:" px-6 py-2 mx-auto block rounded-md text-lg font-semibold bg-sky-600 hover:bg-sky-700 text-white cursor-pointer " %></button>
       </div>
     <% end %>
   </div>
