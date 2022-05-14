@@ -7,6 +7,7 @@
       <%= f.label :state_eq, t("task.search.state") %>
       <%= f.select :state_eq, state_menu_search(Task.states), id:'select_option', :include_blank => true%>
       <button class="px-6 py-2 rounded-lg w-1/8 bg-sky-600 hover:bg-sky-700 text-white"><%= f.submit t("task.search_button") %></button>
+      <%= link_to  t("user.action.delete"), logout_path, data: { "turbo-method": :delete } %>
     <% end %>
   </nav>
   <div class="font-bold text-6xl text-blue-500"><%=t("task.h1.index_task")%></div>

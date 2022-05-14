@@ -2,7 +2,7 @@
 
 <div class="bg-indigo-50 min-h-screen md:px-20 pt-6">
   <div class=" bg-white rounded-md px-6 py-10 max-w-2xl mx-auto">
-    <%= form_with(model: @user, url: registering_path, data: {turbo: false}) do |u| %>
+    <%= form_with(model: @user, url: create_path, data: {turbo: false}) do |u| %>
       <div class="space-y-4">
         <div class="fields flex space-x-4">
           <%= u.label :name, class: "text-lx" %>
@@ -21,10 +21,10 @@
         </div>
 
         <div class="fields flex space-x-4">
-          <%= u.label :password %>
-          <%= u.password_field :password, class:"ml-2 outline-none py-1 px-2 text-md border-2 rounded-md" %>
-					<% if u.object.errors[:password]%>
-          <span><%= u.object.errors[:password][0] %></span>
+          <%= u.label :password_digest %>
+          <%= u.password_field :password_digest, class:"ml-2 outline-none py-1 px-2 text-md border-2 rounded-md" %>
+					<% if u.object.errors[:password_digest]%>
+          <span><%= u.object.errors[:password_digest][0] %></span>
         	<% end %>
         </div>
 

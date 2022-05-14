@@ -6,7 +6,8 @@
       user:
         name: 姓名
         email: 信箱
-        password: 密碼
+        password_digest: 密碼
+        password_confirmation: 確認密碼
         role:
           admin: 管理員
           viewer: 一般用戶
@@ -70,11 +71,15 @@
     column:
       name: 姓名
       email: 信箱
-      password: 密碼
+      password_digest: 密碼
+      password_confirmation: 確認密碼
       role: 身份
     role:
       admin: 管理員
       viewer: 一般用戶
+    
+    action:
+      delete: 登出
 
     register_button: 註冊
     message:
