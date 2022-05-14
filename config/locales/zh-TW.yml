@@ -69,12 +69,16 @@
       success_delete: 任務刪除成功！
       confirm_delete: 您確定要刪除此筆任務嗎？  
   user:
+    h1:
+      index_user: 使用者列表
     column:
       name: 姓名
       email: 信箱
       password: 密碼
       password_confirmation: 確認密碼
       role: 身份
+      task_size: 任務數量
+
     role:
       admin: 管理員
       viewer: 一般用戶
