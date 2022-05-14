@@ -90,6 +90,7 @@
       success_login: 登入成功
       success_logout: 登出成功，下次見!
       failed_login: 帳號密碼組合不正確，請重新嘗試
+      login_first: 您尚未登入，請先登入會員
   views:
     pagination:
       first: "&laquo; 首頁"

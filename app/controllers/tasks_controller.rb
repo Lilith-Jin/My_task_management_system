@@ -2,6 +2,7 @@
 
 class TasksController < ApplicationController
   before_action :find_task, only: %i[edit update show destroy]
+  before_action :authenticate_user
 
   def index
     @q = Task.ransack(params[:q])

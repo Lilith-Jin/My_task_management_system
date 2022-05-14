@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
   def create
     user = User.find_by(email: user_params[:email])
   
-    if user&.authenticate(user_params[:password_digest])
+    if user&.authenticate(user_params[:password])
       login(user)
       redirect_to tasks_path, notice: I18n.t('user.message.success_login')
     else
@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
 
   def destroy
     session[:session] = nil
-    redirect_to root_path, notice: '登出成功，下次見!', status: :see_other
+    redirect_to root_path, notice: I18n.t('user.message.success_logout'), status: :see_other
   end
 
   private
