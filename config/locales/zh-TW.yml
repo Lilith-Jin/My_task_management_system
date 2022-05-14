@@ -83,6 +83,7 @@
       new: 註冊
       login: 登入
       delete: 登出
+      login_to_new: 尚未有帳號，前往註冊
 
     register_button: 註冊
     

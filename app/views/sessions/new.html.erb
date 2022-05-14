@@ -21,6 +21,8 @@
         </div>
 
         <button><%= u.submit t("user.action.login"), class:" px-6 py-2 mx-auto block rounded-md text-lg font-semibold bg-sky-600 hover:bg-sky-700 text-white cursor-pointer " %></button>
+        <button class="px-6 py-2  rounded-md text-lg font-semibold bg-sky-600 hover:bg-sky-700 text-white cursor-pointer"><%= link_to t("user.action.login_to_new"), new_path %></button>
+
       </div>
     <% end %>
   </div>
