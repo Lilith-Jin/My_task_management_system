@@ -1,11 +1,15 @@
 # frozen_string_literal: true
 
 class TasksController < ApplicationController
-  before_action :find_task, only: %i[ edit update show destroy]
+  before_action :find_task, only: %i[edit update show destroy]
   before_action :authenticate_user
 
   def index
-    search
+    if current_user.present?
+      search
+    else
+      redirect_to root_path
+    end
   end
 
   def show; end
@@ -47,12 +51,11 @@ class TasksController < ApplicationController
   end
 
   def find_task
-   @task = Task.find(params[:id])
+    @task = Task.find(params[:id])
   end
 
   def search
     @q = current_user.tasks.ransack(params[:q])
     @tasks = @q.result(distinct: true).order('end_time').page(params[:page]).per(10)
   end
-
 end

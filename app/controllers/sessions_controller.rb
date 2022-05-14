@@ -1,12 +1,11 @@
 class SessionsController < ApplicationController
-
   def new
     @user = User.new
   end
 
   def create
     user = User.find_by(email: user_params[:email])
-  
+
     if user&.authenticate(user_params[:password])
       login(user)
       redirect_to tasks_path, notice: I18n.t('user.message.success_login')
