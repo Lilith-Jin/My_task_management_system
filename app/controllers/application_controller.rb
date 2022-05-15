@@ -11,11 +11,7 @@ class ApplicationController < ActionController::Base
     @current_user || User.find_by(id: session[:session])
   end
 
-  def user_sign_in?
-    session[:session].present?
-  end
-
-  def authenticate_user
-    redirect_to login_path, notice: I18n.t('user.message.login_first') unless user_sign_in?
+  def authenticate_user!
+    redirect_to login_path, notice: I18n.t('user.message.login_first') unless current_user
   end
 end

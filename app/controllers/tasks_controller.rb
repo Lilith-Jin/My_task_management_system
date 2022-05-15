@@ -2,14 +2,10 @@
 
 class TasksController < ApplicationController
   before_action :find_task, only: %i[edit update show destroy]
-  before_action :authenticate_user
+  before_action :authenticate_user!
 
   def index
-    if current_user.present?
-      search
-    else
-      redirect_to root_path
-    end
+    search
   end
 
   def show; end
@@ -28,7 +24,7 @@ class TasksController < ApplicationController
   end
 
   def edit
-    # byebug
+
   end
 
   def update
