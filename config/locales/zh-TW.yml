@@ -92,6 +92,7 @@
       user_update: 更新
       user_edit: 編輯
       user_delete: 刪除
+      user_task_index: 查看任務
 
     register_button: 註冊
     
