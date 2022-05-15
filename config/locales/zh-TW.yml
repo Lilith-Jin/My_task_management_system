@@ -71,6 +71,7 @@
   user:
     h1:
       index_user: 使用者列表
+      edit_user: 更新使用者資訊
     column:
       name: 姓名
       email: 信箱
@@ -88,6 +89,7 @@
       login: 登入
       delete: 登出
       login_to_new: 尚未有帳號，前往註冊
+      user_update: 更新
 
     register_button: 註冊
     
@@ -95,6 +97,8 @@
       success_register: 註冊成功
       success_login: 登入成功
       success_logout: 登出成功，下次見!
+      success_update: 使用者資訊更新成功!
+      failed_update: 使用者訊更新失敗，請確認輸入資訊!
       failed_login: 帳號密碼組合不正確，請重新嘗試
       login_first: 您尚未登入，請先登入會員
   views:
