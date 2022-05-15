@@ -19,6 +19,8 @@
             <td><%= u.email%></td>
             <td><%= u.tasks.size%></td>
             <td><%= u.role%></td>
+            <td><button class="px-6 py-2 rounded-lg w-1/8 bg-sky-600 hover:bg-sky-700 text-white"><%= link_to t("user.action.user_edit"), edit_admin_user_path(u)%></button></td>
+            <td></td>
           </tr>
       <% end %>
     </tbody>

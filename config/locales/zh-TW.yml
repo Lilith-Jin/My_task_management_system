@@ -90,6 +90,7 @@
       delete: 登出
       login_to_new: 尚未有帳號，前往註冊
       user_update: 更新
+      user_edit: 編輯使用者
 
     register_button: 註冊
     
