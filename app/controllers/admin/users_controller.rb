@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Admin::UsersController < ApplicationController
   before_action :find_user, only: %i[edit update destroy]
 

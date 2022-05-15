@@ -1,0 +1,45 @@
+<div class="md:container md:mx-auto" id="task_list">
+  <nav class="space-y-2 text-xl" id="search-field">
+    <%= search_form_for @q do |f| %>
+      <%= f.label :title_cont, t("task.search.title") %>
+      <%= f.search_field :title_cont %>
+
+      <%= f.label :state_eq, t("task.search.state") %>
+      <%= f.select :state_eq, state_menu_search(Task.states), id:'select_option', :include_blank => true%>
+      <button class="px-6 py-2 rounded-lg w-1/8 bg-sky-600 hover:bg-sky-700 text-white"><%= f.submit t("task.search_button") %></button>
+      <%= render "nav/header"%>
+    <% end %>
+  </nav>
+  <div class="font-bold text-6xl text-blue-500"><%=t("task.h1.index_task")%></div>
+  <div class="mb-2 mt-2">
+    <button class="px-6 py-2 text-xl rounded-lg w-1/8 bg-sky-600 hover:bg-sky-700 text-white"> <%= link_to t("task.action.create"), new_task_path %></button>
+  </div>
+  <table id="task_info">
+    <thead class="font-bold text-l">
+      <tr>
+        <th><%=t("task.column.title")%></th>
+        <th><%=t("task.column.content")%></th>
+        <th id='sort_priority'><%=sort_link(@q, :priority, t("task.column.priority"), defalt_order: :asc) %></th>
+        <th><%=t("task.column.state")%></th>
+        <th><%=t("task.column.start_time")%></th>
+        <th><%=sort_link(@q, :end_time, t("task.column.end_time"), defalt_order: :asc) %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @tasks.each do |task|%>
+          <tr id="task_card">
+            <td class="py-4 text-xl font-medium" id="task_title"><%= link_to task.title, task_path(task) %></td>
+            <td><%= task.content%></td>
+            <td><%= t("task.priority.#{task.priority}")%></td>
+            <td><%= t("task.state.#{task.state}")%></td>
+            <td><%= task.start_time.to_fs(:short)%></td>
+            <td><%= task.end_time.to_fs(:short)%></td>
+            <td><button class="px-6 py-2 rounded-lg w-1/8 bg-sky-600 hover:bg-sky-700 text-white"><%= link_to t("task.action.show"), task_path(task)%></button></td>
+            <td><button class="px-6 py-2 rounded-lg w-1/8 bg-sky-600 hover:bg-sky-700 text-white"><%= link_to t("task.action.update"), edit_task_path(task)%></button></td>
+            <td><button class="px-6 py-2 rounded-lg w-1/8 bg-gray-400 hover:bg-gray-500 text-white"><%= link_to t("task.action.delete"), task_path(task), id: 'delete-task', data: { "turbo-method": :delete, "turbo-confirm":t("task.message.confirm_delete") }%></button></td>
+          </tr>
+      <% end %>
+    </tbody>
+  </table>
+       <%= paginate @tasks, window: 2 %>
+</div>
