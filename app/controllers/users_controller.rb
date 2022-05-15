@@ -1,22 +1,23 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  def sign_up
+  def new
     @user = User.new
   end
 
-  def registering
+  def create
     @user = User.new(user_params)
     if @user.save
+      login(@user)
       redirect_to tasks_path, notice: I18n.t('user.message.success_register')
     else
-      render :sign_up
+      render :new
     end
   end
 
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :role)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :role)
   end
 end

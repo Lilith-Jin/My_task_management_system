@@ -2,10 +2,10 @@
 
 class TasksController < ApplicationController
   before_action :find_task, only: %i[edit update show destroy]
+  before_action :authenticate_user!
 
   def index
-    @q = Task.ransack(params[:q])
-    @tasks = @q.result(distinct: true).order('end_time').page(params[:page]).per(10)
+    search
   end
 
   def show; end
@@ -15,7 +15,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
     if @task.save
       redirect_to tasks_path, notice: I18n.t('task.message.success_create')
     else
@@ -23,9 +23,7 @@ class TasksController < ApplicationController
     end
   end
 
-  def edit
-    # byebug
-  end
+  def edit; end
 
   def update
     if @task.update(task_params)
@@ -48,5 +46,10 @@ class TasksController < ApplicationController
 
   def find_task
     @task = Task.find(params[:id])
+  end
+
+  def search
+    @q = current_user.tasks.ransack(params[:q])
+    @tasks = @q.result(distinct: true).order('end_time').page(params[:page]).per(10)
   end
 end
