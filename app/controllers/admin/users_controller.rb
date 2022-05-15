@@ -17,6 +17,11 @@ class Admin::UsersController < ApplicationController
     end
   end
 
+  def destroy
+    @user.destroy
+    redirect_to admin_users_path, status: :see_other, notice: I18n.t('user.message.success_delete')
+  end
+
   private 
 
   def user_params
