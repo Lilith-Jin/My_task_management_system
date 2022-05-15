@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# frozen_string_literal: true
+
 module TasksHelper
   def state_menu_search(states)
     states.map do |key, value|
