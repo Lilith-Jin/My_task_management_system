@@ -106,6 +106,7 @@
       success_delete: 成功刪除使用者資訊!
       failed_login: 帳號密碼組合不正確，請重新嘗試
       login_first: 您尚未登入，請先登入會員
+      role_admin: 您非管理員，請先註冊成為管理員
   views:
     pagination:
       first: "&laquo; 首頁"
