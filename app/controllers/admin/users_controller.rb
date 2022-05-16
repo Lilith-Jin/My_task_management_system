@@ -46,9 +46,7 @@ module Admin
     end
 
     def check_role
-      unless current_user.role == "admin"
-        redirect_to root_path, notice: I18n.t('user.message.role_admin')
-      end
+      redirect_to root_path, notice: I18n.t('user.message.role_admin') unless current_user.role == 'admin'
     end
   end
 end

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  before_action :authenticate_user!, only: %i[edit, update]
-  before_action :current_user, only: %i[edit, update]
+  before_action :authenticate_user!, only: %i[edit update]
+  before_action :current_user, only: %i[edit update]
   def new
     @user = User.new
   end
@@ -17,9 +17,7 @@ class UsersController < ApplicationController
     end
   end
 
-  def edit
-    
-  end
+  def edit; end
 
   def update
     if current_user.update(user_params)
@@ -34,5 +32,4 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation, :role)
   end
-
 end
