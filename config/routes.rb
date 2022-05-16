@@ -4,6 +4,12 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "home#index"
 
+  namespace :admin, path: "management" do
+    resources :users do
+      resources :tasks, shallow: true
+    end
+  end
+
   get '/new', to: 'users#new'
   post '/create', to: 'users#create'
 
