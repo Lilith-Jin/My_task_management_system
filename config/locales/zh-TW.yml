@@ -28,6 +28,11 @@
           waiting: 待處理
           running: 進行中
           done: 已完成
+    errors:
+      models:
+        user:
+          base:
+            custom_message: 至少要有一位管理員
   task:
     search:
       title: 請輸入任務名稱
@@ -107,6 +112,7 @@
       failed_update: 使用者訊更新失敗，請確認輸入資訊!
       confirm_delete: 您確定要刪除此用者嗎？
       success_delete: 成功刪除使用者資訊!
+      failed_delete: 本系統至少要有一位管理員！
       failed_login: 帳號密碼組合不正確，請重新嘗試
       login_first: 您尚未登入，請先登入會員
       role_admin: 您非管理員，請先註冊成為管理員

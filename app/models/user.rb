@@ -6,4 +6,14 @@ class User < ApplicationRecord
   validates :email, presence: true, format: { with: /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/ }
   has_many :tasks, dependent: :destroy
   enum :role, %i[admin viewer], default: :viewer
+  before_destroy :destroy_admin
+
+  private
+
+  def destroy_admin
+    if self.admin? && User.where(role:"admin").count == 1
+      errors[:role] << '至少要存在一位管理員'
+      throw(:abort)
+    end
+  end
 end
