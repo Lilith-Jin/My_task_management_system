@@ -71,8 +71,9 @@
   user:
     h1:
       index_user: 使用者列表
-      edit_user: 更新使用者資訊
+      edit_user: 編輯會員資訊
       new_user: 註冊新會員
+
     column:
       name: 姓名
       email: 信箱
