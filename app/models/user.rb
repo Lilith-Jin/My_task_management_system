@@ -11,9 +11,8 @@ class User < ApplicationRecord
   private
 
   def destroy_admin
-    if self.admin? && User.where(role:"admin").count == 1
+    return unless admin? && User.where(role: 'admin').count == 1
       errors[:role] << '至少要存在一位管理員'
       throw(:abort)
-    end
   end
 end
