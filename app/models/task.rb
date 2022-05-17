@@ -2,6 +2,8 @@
 
 class Task < ApplicationRecord
   belongs_to :user
+  has_many :task_tags
+  has_many :tags, through: :task_tags, dependent: :destroy
   validates :title, presence: true
   validates :content, length: { maximum: 100, too_long: ' %<count>s only allow 100 characters ' }, presence: true
   validates_comparison_of :end_time, greater_than: :start_time, other_than: Time.zone.today, allow_nil: false
