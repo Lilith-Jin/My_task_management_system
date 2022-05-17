@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   namespace :admin, path: "management" do
     
     resources :users do
-      resources :tasks, shallow: true
+      resources :tasks, shallow: true     
     end
   end
 
@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
 
-  resources :tasks
-
+  resources :tasks do 
+    resources :tags, only: [:new, :create]
+  end
+  resources :tags, only: [:destroy]
 end

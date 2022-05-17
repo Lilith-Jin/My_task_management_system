@@ -29,6 +29,11 @@
           waiting: 待處理
           running: 進行中
           done: 已完成
+      tag:
+        name: 名稱
+  tag:
+    action:
+      new: 新增
   task:
     search:
       title: 請輸入任務名稱
