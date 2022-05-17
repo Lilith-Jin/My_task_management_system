@@ -34,10 +34,14 @@
   tag:
     action:
       new: 新增
+    message:
+      success_delete: 標籤刪除成功！
+
   task:
     search:
       title: 請輸入任務名稱
       state: 請選擇任務狀態 
+      tag: 請輸入標籤名稱
     search_button: 搜尋
     h1:
       index_task: 任務列表
@@ -58,6 +62,8 @@
       update: 更新任務
       show: 查看任務
       delete: 刪除任務
+      new_tag: 新增標籤
+      delete_tag: 刪除標籤
 
     priority:
       high: 高
