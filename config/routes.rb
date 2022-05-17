@@ -11,12 +11,8 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :users do
-    collection do
-      get :edit
-      put :update
-    end
-  end
+  resources :users, only: [:new, :create] 
+  resource :my_profile
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
