@@ -1,6 +1,7 @@
 <% if user_sign_in? %>
-  <button class="px-6 py-2 rounded-lg w-1/10 bg-gray-400 hover:bg-gray-500 text-white"><%= link_to t("user.action.delete"), logout_path, data: { "turbo-method": :delete } %></button>
+  <button class="px-6 py-2 rounded-lg w-1/8 bg-gray-400 hover:bg-gray-500 text-white"><%= link_to t("user.action.delete"), logout_path, data: { "turbo-method": :delete } %></button>
+  <button class="px-6 py-2 rounded-lg w-1/8 bg-sky-600 hover:bg-sky-700 text-white"><%= link_to t("user.action.edit"), edit_my_profile_path %></button>
 <% else %>
   <button class="px-6 py-2 rounded-lg w-1/8 bg-sky-600 hover:bg-sky-700 text-white"><%= link_to t("user.action.login"), login_path %></button>
-  <button class="px-6 py-2 rounded-lg w-1/8 bg-sky-600 hover:bg-sky-700 text-white"><%= link_to t("user.action.new"), new_path %></button>
+  <button class="px-6 py-2 rounded-lg w-1/8 bg-sky-600 hover:bg-sky-700 text-white"><%= link_to t("user.action.new"), new_user_path %></button>
 <% end %>

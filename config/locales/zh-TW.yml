@@ -11,6 +11,7 @@
         role:
           admin: 管理員
           viewer: 一般用戶
+          other: 不存在
       task:
         title: 任務名稱
         content: 任務內容
@@ -71,7 +72,9 @@
   user:
     h1:
       index_user: 使用者列表
-      edit_user: 更新使用者資訊
+      edit_user: 編輯會員資訊
+      new_user: 註冊新會員
+
     column:
       name: 姓名
       email: 信箱
@@ -88,6 +91,7 @@
       new: 註冊
       login: 登入
       delete: 登出
+      edit: 編輯個人資訊
       login_to_new: 尚未有帳號，前往註冊
       user_update: 更新
       user_edit: 編輯
@@ -104,8 +108,10 @@
       failed_update: 使用者訊更新失敗，請確認輸入資訊!
       confirm_delete: 您確定要刪除此用者嗎？
       success_delete: 成功刪除使用者資訊!
+      failed_delete: 本系統至少要有一位管理員！
       failed_login: 帳號密碼組合不正確，請重新嘗試
       login_first: 您尚未登入，請先登入會員
+      role_admin: 您非管理員，請先註冊成為管理員
   views:
     pagination:
       first: "&laquo; 首頁"

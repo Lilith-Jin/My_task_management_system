@@ -3,9 +3,10 @@
 module Admin
   class UsersController < ApplicationController
     before_action :find_user, only: %i[edit update destroy]
+    before_action :check_role, only: %i[index edit update destroy]
 
     def index
-      @users = User.includes(:tasks).where.not(id: current_user.id).page(params[:page]).per(10)
+      @users = User.includes(:tasks).page(params[:page]).per(10)
     end
 
     def edit; end
@@ -14,13 +15,24 @@ module Admin
       if @user.update(user_params)
         redirect_to admin_users_path, notice: I18n.t('user.message.success_update')
       else
-        render :edit, notice: I18n.t(user.message.failed_update)
+        render :edit, notice: I18n.t('user.message.failed_update')
       end
     end
 
     def destroy
-      @user.destroy
-      redirect_to admin_users_path, status: :see_other, notice: I18n.t('user.message.success_delete')
+      if @user.destroy
+        redirect_to admin_users_path, status: :see_other, notice: I18n.t('user.message.success_delete')
+      else
+        redirect_to admin_users_path, status: :see_other, notice: I18n.t('user.message.failed_delete')
+      end
+    end
+
+    def update_role
+      if @user.update(role: user_params[:role])
+        redirect_to admin_users_path, notice: I18n.t('user.message.success_update')
+      else
+        render :edit, notice: I18n.t('user.message.failed_update')
+      end
     end
 
     private
@@ -31,6 +43,10 @@ module Admin
 
     def find_user
       @user = User.find(params[:id])
+    end
+
+    def check_role
+      redirect_to root_path, notice: I18n.t('user.message.role_admin') unless current_user.role == 'admin'
     end
   end
 end

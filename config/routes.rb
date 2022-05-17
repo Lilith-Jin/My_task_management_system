@@ -5,13 +5,14 @@ Rails.application.routes.draw do
   root "home#index"
 
   namespace :admin, path: "management" do
+    
     resources :users do
       resources :tasks, shallow: true
     end
   end
 
-  get '/new', to: 'users#new'
-  post '/create', to: 'users#create'
+  resources :users, only: [:new, :create] 
+  resource :my_profile
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
