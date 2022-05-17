@@ -11,6 +11,7 @@
         role:
           admin: 管理員
           viewer: 一般用戶
+          other: 不存在
       task:
         title: 任務名稱
         content: 任務內容
@@ -28,11 +29,6 @@
           waiting: 待處理
           running: 進行中
           done: 已完成
-    errors:
-      models:
-        user:
-          base:
-            custom_message: 至少要有一位管理員
   task:
     search:
       title: 請輸入任務名稱
