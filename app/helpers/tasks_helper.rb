@@ -20,4 +20,9 @@ module TasksHelper
       [I18n.t(key, scope: %i[task priority]), key]
     end
   end
+
+  def tag_name(task)
+    task.tags.pluck(:name).join(",")
+  end
+
 end
