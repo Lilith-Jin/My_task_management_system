@@ -17,7 +17,7 @@ class Task < ApplicationRecord
   end
 
   def tags_name=(strs)
-    tags_name = strs.split(',').map { |s| s.strip }
+    tags_name = strs.split(',').map(&:strip)
     original_tags_name = tags.map(&:name)
     tags.where.not(name: tags_name).destroy_all
     tags_name.each do |tag_name|
@@ -27,4 +27,3 @@ class Task < ApplicationRecord
     end
   end
 end
-

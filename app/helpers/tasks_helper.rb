@@ -22,7 +22,6 @@ module TasksHelper
   end
 
   def tag_name(task)
-    task.tags.pluck(:name).join(",")
+    task.tags.pluck(:name).join(',')
   end
-
 end

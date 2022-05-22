@@ -39,15 +39,13 @@ class TasksController < ApplicationController
     redirect_to tasks_path, status: :see_other, notice: I18n.t('task.message.success_delete')
   end
 
-
   private
 
   def task_params
-    params.require(:task).permit(:title, :content, :priority, :state, :start_time, :end_time, :tags_name )
+    params.require(:task).permit(:title, :content, :priority, :state, :start_time, :end_time, :tags_name)
   end
 
   def find_task
     @task = Task.find(params[:id])
   end
-
 end
