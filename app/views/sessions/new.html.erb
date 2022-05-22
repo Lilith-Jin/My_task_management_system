@@ -1,4 +1,4 @@
-<h1>會員登入</h1>
+<h1><%= t("user.h1.login_user") %></h1>
 
 <div class="bg-indigo-50 min-h-screen md:px-20 pt-6">
   <div class=" bg-white rounded-md px-6 py-10 max-w-2xl mx-auto">
@@ -21,7 +21,7 @@
         </div>
 
         <button><%= u.submit t("user.action.login"), class:" px-6 py-2 mx-auto block rounded-md text-lg font-semibold bg-sky-600 hover:bg-sky-700 text-white cursor-pointer " %></button>
-        <button class="px-6 py-2  rounded-md text-lg font-semibold bg-sky-600 hover:bg-sky-700 text-white cursor-pointer"><%= link_to t("user.action.login_to_new"), new_path %></button>
+        <button class="px-6 py-2  rounded-md text-lg font-semibold bg-sky-600 hover:bg-sky-700 text-white cursor-pointer"><%= link_to t("user.action.login_to_new"), new_user_path %></button>
 
       </div>
     <% end %>
