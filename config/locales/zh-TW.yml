@@ -66,6 +66,8 @@
       delete: 刪除任務
       new_tag: 新增標籤
       delete_tag: 刪除標籤
+      my_task: 我的任務
+      new_task: 新增任務
 
     priority:
       high: 高
@@ -103,7 +105,7 @@
       viewer: 一般用戶
     
     action:
-      new: 註冊
+      new: 註冊會員
       login: 登入
       delete: 登出
       edit: 編輯個人資訊
