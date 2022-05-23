@@ -2,21 +2,25 @@
 <%= content_for :header do %>
   <header class="bg-indigo-600">
     <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Top">
-      <div class="w-full py-6 flex items-center justify-between border-b border-indigo-500 lg:border-none">
+      <div class="w-full py-6 flex items-center justify-between border-b border-indigo-600 lg:border-none">
         <div class="flex items-center">
-          <a href="#">
-            <span class="sr-only">Workflow</span>
-            <img class="h-10 w-auto" src="https://tailwindui.com/img/logos/workflow-mark.svg?color=white" alt="">
-          </a>
-        <div class="ml-10 space-x-4">
-        <% if user_sign_in? %>
-          <button class="inline-block bg-gray-400 py-2 px-4 border border-transparent rounded-md text-base font-medium text-white hover:bg-gray-500"><%= link_to t("user.action.delete"), logout_path, data: { "turbo-method": :delete } %></button>
-          <button class="inline-block bg-indigo-500 py-2 px-4 border border-transparent rounded-md text-base font-medium text-white hover:bg-opacity-75"><%= link_to t("user.action.edit"), edit_my_profile_path %></button>
-        <% else %>
-          <button class="inline-block bg-indigo-500 py-2 px-4 border border-transparent rounded-md text-base font-medium text-white hover:bg-opacity-75"><%= link_to t("user.action.login"), login_path %></button>
-          <button class="inline-block bg-indigo-500 py-2 px-4 border border-transparent rounded-md text-base font-medium text-white hover:bg-opacity-75"><%= link_to t("user.action.new"), new_user_path %></button>
-        <% end %>
+          <span class="sr-only">Workflow</span>
+          <img class="h-10 w-auto" src="https://tailwindui.com/img/logos/workflow-mark.svg?color=white" alt="">
+          <% if user_sign_in? %>
+          <div class="hidden ml-10 space-x-8 lg:block">
+            <button class="text-base font-medium text-white hover:text-indigo-50"><%= link_to t("task.h1.index_task"), tasks_path %></button>
+            <button class="text-base font-medium text-white hover:text-indigo-50"><%= link_to t("user.action.edit"), edit_my_profile_path %></button>
+          </div>
         </div>
+        <div class="ml-10 space-x-4">
+          <button class="inline-block bg-gray-400 py-2 px-4 border border-transparent rounded-md text-base font-medium text-white hover:bg-gray-500"><%= link_to t("user.action.delete"), logout_path, data: { "turbo-method": :delete } %></button>
+        </div>
+        <% else %>
+        <div class="ml-10 space-x-4">
+          <button class="inline-block bg-indigo-400 py-2 px-4 border border-transparent rounded-md text-base font-medium text-white hover:bg-opacity-75"><%= link_to t("user.action.login"), login_path %></button>
+          <button class="inline-block bg-indigo-400 py-2 px-4 border border-transparent rounded-md text-base font-medium text-white hover:bg-opacity-75"><%= link_to t("user.action.new"), new_user_path %></button>
+        </div>
+        <% end %>
       </div>
     </nav>
   </header>
