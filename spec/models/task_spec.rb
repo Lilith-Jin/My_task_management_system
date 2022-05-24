@@ -80,4 +80,11 @@ RSpec.describe Task, type: :model do
       it { is_expected.not_to eq([new_task]) }
     end
   end
+
+  describe 'relation of tag' do
+    subject { build(:task) }
+
+    it { is_expected.to have_many(:task_tags).class_name('TaskTag') }
+    it { is_expected.to have_many(:tags).class_name('Tag') }
+  end
 end
