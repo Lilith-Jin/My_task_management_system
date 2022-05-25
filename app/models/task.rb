@@ -17,7 +17,7 @@ class Task < ApplicationRecord
 
   def tags_name=(strs)
     self.tags = strs.split(',').map(&:strip).map do |name|
-      tags.find_or_initialize_by(name: name)
+      Tag.find_or_initialize_by(name: name)
     end
   end
 end
