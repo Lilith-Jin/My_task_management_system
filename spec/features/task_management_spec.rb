@@ -6,11 +6,16 @@ RSpec.describe 'task management', type: :feature do
   subject { page }
 
   let!(:task) { create(:task) }
+  let!(:user) { create(:user) }
+
+  before do
+    login(user)
+  end
 
   context 'with new page' do
     before do
-      visit tasks_path
-      click_link(I18n.t('task.action.create'))
+      has_css?('#task_list')
+      click_link I18n.t('task.action.create')
     end
 
     describe 'Link to creates a new task' do
@@ -22,19 +27,19 @@ RSpec.describe 'task management', type: :feature do
         let(:result_fields) { get_fields(task) }
 
         before do
-          fill_data
+          fill_task_data
           click_button I18n.t('task.action.create')
         end
 
         it { is_expected.to have_content(task.title) }
         it { is_expected.to have_text(I18n.t('task.message.success_create')) }
-
+        it { is_expected.to have_selector('tr#task_card:nth-child(1)', text: task.tags_name) }
         it 'test a task in database' do
           expect(last_task_fields).to eq(result_fields)
         end
       end
 
-      def fill_data
+      def fill_task_data
         within('form') do
           fill_in 'task_title', with: task.title
           fill_in 'task_content', with: task.content
@@ -42,11 +47,12 @@ RSpec.describe 'task management', type: :feature do
           fill_in 'task_end_time', with: task.end_time
           find_field('task_priority').find('option[selected]').text
           find_field('task_state').find('option[selected]').text
+          fill_in 'task_tags_name', with: task.tags_name
         end
       end
 
       def get_fields(task)
-        task.attributes.values_at('title', 'content', 'start_time', 'end_time', 'priority', 'state')
+        task.attributes.values_at('title', 'content', 'start_time', 'end_time', 'priority', 'state', 'tags_name')
       end
     end
   end
@@ -167,6 +173,9 @@ RSpec.describe 'task management', type: :feature do
       it 'only have one task to match select' do
         expect(all('#task_card').count).to eq(1)
       end
+    end
+
+    describe 'when type tag name match the task' do
     end
   end
 
