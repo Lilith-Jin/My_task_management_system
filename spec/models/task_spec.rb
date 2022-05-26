@@ -82,8 +82,6 @@ RSpec.describe Task, type: :model do
   end
 
   describe 'relation of tag' do
-    subject { build(:task) }
-
     it { is_expected.to have_many(:task_tags).class_name('TaskTag') }
     it { is_expected.to have_many(:tags).class_name('Tag') }
   end
@@ -92,16 +90,11 @@ RSpec.describe Task, type: :model do
     context 'with get task attribute' do
       subject(:tags_name) { task.tags_name }
 
-      let(:tag_a) { create :tag, name: 'a' }
-      let(:tag_b) { create :tag, name: 'b' }
-      let(:task) do
-        task = create(:task)
-        task.tags << tag_a
-        task.tags << tag_b
-        task
-      end
+      let(:tags) { create_list(:tag, 2) }
+      let(:tags_name) { tags.map(&:name).join(',') }
+      let(:task) { create :task, :tags }
 
-      it { is_expected.to eq("#{tag_a.name},#{tag_b.name}") }
+      it { is_expected.to eq(tags.map(&:name).join(',')) }
     end
   end
 
@@ -126,8 +119,7 @@ RSpec.describe Task, type: :model do
       let(:tags_name) { 'a, b' }
 
       it { expect(tags.map(&:name)).to eq(%w[a b]) }
-      it { expect(tags.first.present?).to be true }
-      it { expect(tags.second.present?).to be true }
+      it { expect(tags.count).to eq 2 }
     end
   end
 end

@@ -2,6 +2,6 @@
 
 FactoryBot.define do
   factory :tag do
-    name { 'live' }
+    name { Faker::Hobby.activity }
   end
 end
