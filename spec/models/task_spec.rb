@@ -88,11 +88,11 @@ RSpec.describe Task, type: :model do
 
   describe '#tags_name' do
     context 'with get task attribute' do
-      subject(:tags_name) { task.tags_name }
+      subject { task.tags_name }
 
       let(:tags) { create_list(:tag, 2) }
       let(:tags_name) { tags.map(&:name).join(',') }
-      let(:task) { create :task, :tags }
+      let(:task) { create :task, tags: tags }
 
       it { is_expected.to eq(tags.map(&:name).join(',')) }
     end
