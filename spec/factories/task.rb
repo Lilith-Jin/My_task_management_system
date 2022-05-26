@@ -8,6 +8,7 @@ FactoryBot.define do
     priority { 'high' }
     start_time { Time.zone.at(1.day.from_now.to_i) }
     end_time { Time.zone.at(5.days.from_now.to_i) }
+    association :user
   end
 
   factory :new_task, class: 'Task' do
