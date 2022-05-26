@@ -4,6 +4,7 @@
     <p><%=t("task.column.content")%><%= @task.content%></p>
     <p><%=t("task.column.priority")%><%= t("task.priority.#{@task.priority}")%></p>
     <p><%=t("task.column.state")%><%= t("task.state.#{@task.state}")%></p>
+    <p><%=t("task.column.tag")%><%= tag_name(@task)%></p>
     <p><%=t("task.column.start_time")%><%= @task.start_time.to_s(:short)%></p>
     <p><%=t("task.column.end_time")%><%= @task.end_time.to_s(:short)%></p>
     <button class="px-6 py-2 rounded-lg w-1/8 bg-sky-600 hover:bg-sky-700 text-white"><%= link_to t("task.action.back"), tasks_path%></button>

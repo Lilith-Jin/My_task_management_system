@@ -5,7 +5,8 @@ class TasksController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    search
+    @q = current_user.tasks.includes(:tags, :task_tags).ransack(params[:q])
+    @tasks = @q.result(distinct: true).order('end_time').page(params[:page]).per(10)
   end
 
   def show; end
@@ -41,15 +42,10 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :content, :priority, :state, :start_time, :end_time)
+    params.require(:task).permit(:title, :content, :priority, :state, :start_time, :end_time, :tags_name)
   end
 
   def find_task
     @task = Task.find(params[:id])
-  end
-
-  def search
-    @q = current_user.tasks.ransack(params[:q])
-    @tasks = @q.result(distinct: true).order('end_time').page(params[:page]).per(10)
   end
 end

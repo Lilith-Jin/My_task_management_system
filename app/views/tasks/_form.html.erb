@@ -35,9 +35,13 @@
           <%= t.label :state, t("task.column.state") %>
           <%= select(:task, :state, option_for_state_select(Task.states.keys))%>
         </div>
-
+      
+        <div class="rounded-md shadow-sm">
+          <%= t.text_field :tags_name, placeholder: "請輸入標籤名稱", class: "tags-input", data: { controller: "tags" } %>
+        </div>
         <button><%= t.submit btn_label, class:" px-6 py-2 mx-auto block rounded-md text-lg font-semibold bg-sky-600 hover:bg-sky-700 text-white cursor-pointer " %></button>
       </div>
     <% end %>
   </div>
 </div>
+
