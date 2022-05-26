@@ -87,4 +87,47 @@ RSpec.describe Task, type: :model do
     it { is_expected.to have_many(:task_tags).class_name('TaskTag') }
     it { is_expected.to have_many(:tags).class_name('Tag') }
   end
+
+  describe '#tags_name' do
+    context 'with get task attribute' do
+      subject(:tags_name) { task.tags_name }
+
+      let(:tag_a) { create :tag, name: 'a' }
+      let(:tag_b) { create :tag, name: 'b' }
+      let(:task) do
+        task = create(:task)
+        task.tags << tag_a
+        task.tags << tag_b
+        task
+      end
+
+      it { is_expected.to eq("#{tag_a.name},#{tag_b.name}") }
+    end
+  end
+
+  describe '#tags_name=' do
+    context 'with set task attribute' do
+      subject(:task) { create(:task, tags_name: tags_name) }
+
+      let(:tags_name) { 'a,b,c' }
+
+      it { is_expected.to have_attributes(tags_name: tags_name) }
+    end
+  end
+
+  describe 'when check tags' do
+    subject(:tags) do
+      task.tags_name = tags_name
+      task.tags
+    end
+
+    context 'when add existed tag' do
+      let(:task) { create(:task) }
+      let(:tags_name) { 'a, b' }
+
+      it { expect(tags.map(&:name)).to eq(%w[a b]) }
+      it { expect(tags.first.present?).to be true }
+      it { expect(tags.second.present?).to be true }
+    end
+  end
 end
