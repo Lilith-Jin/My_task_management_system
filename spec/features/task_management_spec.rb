@@ -47,7 +47,6 @@ RSpec.describe 'task management', type: :feature do
         end
       end
 
-
       def get_fields(task)
         task.attributes.values_at('title', 'content', 'start_time', 'end_time', 'priority', 'state', 'tags_name')
       end
@@ -84,6 +83,7 @@ RSpec.describe 'task management', type: :feature do
           click_button(I18n.t('task.action.update'))
           has_css?('#task_list')
         end
+
         it { is_expected.to have_selector('tr#task_card:nth-child(1)', text: tags_name) }
       end
     end
@@ -104,7 +104,7 @@ RSpec.describe 'task management', type: :feature do
         expect(page).to have_text(I18n.t('task.h1.index_task'))
       end
 
-      it 'with tag name ' do
+      it 'with tag name' do
         expect(page).to have_text(task.tags.map(&:name).join(','))
       end
     end
@@ -202,6 +202,7 @@ RSpec.describe 'task management', type: :feature do
         fill_in 'q_tags_name_cont', with: 'a'
         click_button I18n.t('task.search_button')
       end
+
       it { is_expected.to have_content(tag.name) }
     end
   end

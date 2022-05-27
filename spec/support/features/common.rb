@@ -1,10 +1,11 @@
+# frozen_string_literal: true
+
 def login(user)
   visit '/'
   click_link I18n.t('user.action.login')
   has_css?('#login_field')
   login_data(user)
   click_button I18n.t('user.action.login')
-
 end
 
 def login_data(user)
