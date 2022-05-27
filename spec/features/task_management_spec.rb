@@ -7,6 +7,7 @@ RSpec.describe 'task management', type: :feature do
 
   let!(:task) { create(:task) }
   let!(:user) { create(:user) }
+  let!(:tag) { create(:tag) }
 
   before do
     login(user)
@@ -23,6 +24,8 @@ RSpec.describe 'task management', type: :feature do
       it { is_expected.to have_css('form') }
 
       context 'with successfuly creates a new task' do
+        let(:task) { create(:task, tags: [tag]) }
+        let(:tags_name) { task.tags.map(&:name).join(',') }
         let(:last_task_fields) { get_fields(Task.last) }
         let(:result_fields) { get_fields(task) }
 
@@ -33,23 +36,17 @@ RSpec.describe 'task management', type: :feature do
 
         it { is_expected.to have_content(task.title) }
         it { is_expected.to have_text(I18n.t('task.message.success_create')) }
-        it { is_expected.to have_selector('tr#task_card:nth-child(1)', text: task.tags_name) }
+        it { is_expected.to have_selector('tr#task_card:nth-child(1)', text: tags_name) }
+
         it 'test a task in database' do
           expect(last_task_fields).to eq(result_fields)
         end
-      end
 
-      def fill_task_data
-        within('form') do
-          fill_in 'task_title', with: task.title
-          fill_in 'task_content', with: task.content
-          fill_in 'task_start_time', with: task.start_time
-          fill_in 'task_end_time', with: task.end_time
-          find_field('task_priority').find('option[selected]').text
-          find_field('task_state').find('option[selected]').text
-          fill_in 'task_tags_name', with: task.tags_name
+        it 'test a tag in database' do
+          expect(Task.last.tags.map(&:name).join(',')).to eq(tags_name)
         end
       end
+
 
       def get_fields(task)
         task.attributes.values_at('title', 'content', 'start_time', 'end_time', 'priority', 'state', 'tags_name')
@@ -61,6 +58,7 @@ RSpec.describe 'task management', type: :feature do
     before do
       visit tasks_path
       click_link(I18n.t('task.action.update'))
+      have_css('form')
     end
 
     describe 'Link to edit a task' do
@@ -74,6 +72,19 @@ RSpec.describe 'task management', type: :feature do
 
         it { is_expected.to have_content('new title') }
         it { is_expected.to have_text(I18n.t('task.message.success_update')) }
+      end
+
+      context 'with successfuly updates the tags' do
+        let(:tags) { create_list(:tag, 2) }
+        let(:task) { create(:task, tags: tags) }
+        let(:tags_name) { task.tags.map(&:name).join(',') }
+
+        before do
+          fill_in 'task_tags_name', with: tags_name
+          click_button(I18n.t('task.action.update'))
+          has_css?('#task_list')
+        end
+        it { is_expected.to have_selector('tr#task_card:nth-child(1)', text: tags_name) }
       end
     end
   end
@@ -91,6 +102,10 @@ RSpec.describe 'task management', type: :feature do
       it 'Test back to last page button' do
         click_link I18n.t('task.action.back')
         expect(page).to have_text(I18n.t('task.h1.index_task'))
+      end
+
+      it 'with tag name ' do
+        expect(page).to have_text(task.tags.map(&:name).join(','))
       end
     end
   end
@@ -111,6 +126,10 @@ RSpec.describe 'task management', type: :feature do
         it { is_expected.to have_content(I18n.t('task.message.success_delete')) }
         # it { expect { task.reload }.to raise_error(ActiveRecord::RecordNotFound) }
         it { expect(Task.find_by(id: task.id)).to be_nil }
+
+        it 'with delete the relation of tag and task' do
+          expect(TaskTag.find_by(task_id: task.id)).to be_nil
+        end
       end
     end
   end
