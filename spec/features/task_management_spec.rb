@@ -15,7 +15,6 @@ RSpec.describe 'task management', type: :feature do
 
   context 'with new page' do
     before do
-      has_css?('#task_list')
       click_link I18n.t('task.action.create')
     end
 
@@ -57,7 +56,6 @@ RSpec.describe 'task management', type: :feature do
     before do
       visit tasks_path
       click_link(I18n.t('task.action.update'))
-      have_css('form')
     end
 
     describe 'Link to edit a task' do
@@ -81,7 +79,6 @@ RSpec.describe 'task management', type: :feature do
         before do
           fill_in 'task_tags_name', with: tags_name
           click_button(I18n.t('task.action.update'))
-          has_css?('#task_list')
         end
 
         it { is_expected.to have_selector('tr#task_card:nth-child(1)', text: tags_name) }
