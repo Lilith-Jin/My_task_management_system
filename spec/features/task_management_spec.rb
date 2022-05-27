@@ -195,6 +195,14 @@ RSpec.describe 'task management', type: :feature do
     end
 
     describe 'when type tag name match the task' do
+      let(:tag) { create(:tag, name: 'abc') }
+      let(:task) { create(:task, tags: [tag]) }
+
+      before do
+        fill_in 'q_tags_name_cont', with: 'a'
+        click_button I18n.t('task.search_button')
+      end
+      it { is_expected.to have_content(tag.name) }
     end
   end
 
