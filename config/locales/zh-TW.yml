@@ -29,6 +29,8 @@
           waiting: 待處理
           running: 進行中
           done: 已完成
+        tags_name: 任務標籤：
+        
       tag:
         name: 名稱
   tag:
@@ -55,7 +57,7 @@
       end_time: 任務結束時間：
       priority: 任務優先順序：
       state: 任務狀態：
-      tag: 標籤：
+      tag: 任務標籤：
     action:
       back: 返回上一頁
       create: 新增任務

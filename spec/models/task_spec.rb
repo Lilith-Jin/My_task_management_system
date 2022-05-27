@@ -91,7 +91,6 @@ RSpec.describe Task, type: :model do
       subject { task.tags_name }
 
       let(:tags) { create_list(:tag, 2) }
-      let(:tags_name) { tags.map(&:name).join(',') }
       let(:task) { create :task, tags: tags }
 
       it { is_expected.to eq(tags.map(&:name).join(',')) }

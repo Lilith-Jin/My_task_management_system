@@ -18,6 +18,7 @@ FactoryBot.define do
     priority { 'mid' }
     start_time { Time.zone.at(1.day.from_now.to_i) }
     end_time { Time.zone.at(3.days.from_now.to_i) }
+    association :user
   end
 
   factory :last_task, class: 'Task' do
@@ -27,5 +28,6 @@ FactoryBot.define do
     priority { 'low' }
     start_time { Time.zone.at(1.day.from_now.to_i) }
     end_time { Time.zone.at(2.days.from_now.to_i) }
+    association :user
   end
 end
