@@ -8,23 +8,24 @@
       <button class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto"> <%= link_to t("task.action.create"), new_task_path %></button>
     </div>
   </div>
-  <div>
+  <!--search field css-->
+  <div class="mt-6 flex items-center justify-center sm:mt-0 sm:ml-16 sm:flex-none">
     <%= search_form_for @q do |f| %>
       <table>
         <thead>
           <tr>
-            <td><%= f.label :title_cont, t("task.search.title") %></td>
-            <td><%= f.label :tags_name_cont, t("task.search.tag") %></td>
-            <td><%= f.label :state_eq, t("task.search.state") %></td>
+            <td class="px-3"><%= f.label :title_cont, t("task.search.title") %></td>
+            <td class="px-3"><%= f.label :tags_name_cont, t("task.search.tag") %></td>
+            <td class="px-3"><%= f.label :state_eq, t("task.search.state") %></td>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><%= f.search_field :title_cont, class:"shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full pr-12 sm:text-sm border-gray-300 rounded-md"%></td>
-            <td><%= f.search_field :tags_name_cont, class:"shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full pr-12 sm:text-sm border-gray-300 rounded-md" %></td>
-            <td><%= f.select :state_eq, state_menu_search(Task.states), class:"mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md", id:'select_option'%></td>
+            <td class="px-3"><%= f.search_field :title_cont, class:"shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full pr-12 sm:text-sm border-gray-300 rounded-md"%></td>
+            <td class="px-3"><%= f.search_field :tags_name_cont, class:"shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full pr-12 sm:text-sm border-gray-300 rounded-md" %></td>
+            <td class="px-3"><%= f.select :state_eq, state_menu_search(Task.states), {}, class:"block w-full pl-3 pr-12 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md", id:'select_option'%></td>
+            <td class="px-3"><button class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto"><%= f.submit t("task.search_button") %></button></td>
           </tr>
-          <button class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto"><%= f.submit t("task.search_button") %></button>
         <tbody>
       </table>
     <% end %>

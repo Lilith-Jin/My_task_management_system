@@ -41,9 +41,9 @@
 
   task:
     search:
-      title: 請輸入任務名稱
-      state: 請選擇任務狀態 
-      tag: 請輸入標籤名稱
+      title: 請輸入任務名稱：
+      state: 請選擇任務狀態 ：
+      tag: 請輸入標籤名稱：
     search_button: 搜尋
     h1:
       index_task: 任務列表
