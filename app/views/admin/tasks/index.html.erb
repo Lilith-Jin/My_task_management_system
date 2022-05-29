@@ -1,45 +1,89 @@
 <%= render "nav/header"%>
-<div class="md:container md:mx-auto" id="task_list">
-  <nav class="space-y-2 text-xl" id="search-field">
-    <%= search_form_for @q do |f| %>
-      <%= f.label :title_cont, t("task.search.title") %>
-      <%= f.search_field :title_cont %>
-
-      <%= f.label :state_eq, t("task.search.state") %>
-      <%= f.select :state_eq, state_menu_search(Task.states), id:'select_option', :include_blank => true%>
-      <button class="px-6 py-2 rounded-lg w-1/8 bg-sky-600 hover:bg-sky-700 text-white"><%= f.submit t("task.search_button") %></button>
-    <% end %>
-  </nav>
-  <div class="font-bold text-6xl text-blue-500"><%=t("task.h1.index_task")%></div>
-  <div class="mb-2 mt-2">
-    <button class="px-6 py-2 text-xl rounded-lg w-1/8 bg-sky-600 hover:bg-sky-700 text-white"> <%= link_to t("task.action.create"), new_task_path %></button>
+<div class="px-4 sm:px-6 lg:px-8" id="task-list">
+  <div class=" flex items-center sm:flex sm:items-center">
+    <div class="sm:flex-auto" >
+      <h1 class="text-5xl font-semibold text-gray-900"><%=t("task.h1.index_task")%></h1>
+    </div>
+    <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
+      <button class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto"> <%= link_to t("task.action.create"), new_task_path %></button>
+    </div>
   </div>
-  <table id="task_info">
-    <thead class="font-bold text-l">
-      <tr>
-        <th><%=t("task.column.title")%></th>
-        <th><%=t("task.column.content")%></th>
-        <th id='sort_priority'><%=sort_link(@q, :priority, t("task.column.priority"), defalt_order: :asc) %></th>
-        <th><%=t("task.column.state")%></th>
-        <th><%=t("task.column.start_time")%></th>
-        <th><%=sort_link(@q, :end_time, t("task.column.end_time"), defalt_order: :asc) %></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @tasks.each do |task|%>
-          <tr id="task_card">
-            <td class="py-4 text-xl font-medium" id="task_title"><%= link_to task.title, task_path(task) %></td>
-            <td><%= task.content%></td>
-            <td><%= t("task.priority.#{task.priority}")%></td>
-            <td><%= t("task.state.#{task.state}")%></td>
-            <td><%= task.start_time.to_fs(:short)%></td>
-            <td><%= task.end_time.to_fs(:short)%></td>
-            <td><button class="px-6 py-2 rounded-lg w-1/8 bg-sky-600 hover:bg-sky-700 text-white"><%= link_to t("task.action.show"), task_path(task)%></button></td>
-            <td><button class="px-6 py-2 rounded-lg w-1/8 bg-sky-600 hover:bg-sky-700 text-white"><%= link_to t("task.action.update"), edit_task_path(task)%></button></td>
-            <td><button class="px-6 py-2 rounded-lg w-1/8 bg-gray-400 hover:bg-gray-500 text-white"><%= link_to t("task.action.delete"), task_path(task), id: 'delete-task', data: { "turbo-method": :delete, "turbo-confirm":t("task.message.confirm_delete") }%></button></td>
+  <!--search field css-->
+  <div class="mt-6 flex items-center justify-center sm:mt-0 sm:ml-16 sm:flex-none">
+    <%= search_form_for @q do |f| %>
+      <table>
+        <thead>
+          <tr>
+            <td class="px-3"><%= f.label :title_cont, t("task.search.title") %></td>
+            <td class="px-3"><%= f.label :tags_name_cont, t("task.search.tag") %></td>
+            <td class="px-3"><%= f.label :state_eq, t("task.search.state") %></td>
           </tr>
-      <% end %>
-    </tbody>
-  </table>
-       <%= paginate @tasks, window: 2 %>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="px-3"><%= f.search_field :title_cont, class:"shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full pr-12 sm:text-sm border-gray-300 rounded-md"%></td>
+            <td class="px-3"><%= f.search_field :tags_name_cont, class:"shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full pr-12 sm:text-sm border-gray-300 rounded-md" %></td>
+            <td class="px-3"><%= f.select :state_eq, state_menu_search(Task.states), {}, class:"block w-full pl-3 pr-12 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md", id:'select_option'%></td>
+            <td class="px-3"><button class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto"><%= f.submit t("task.search_button") %></button></td>
+          </tr>
+        <tbody>
+      </table>
+    <% end %>
+  </div>
+  <!--task list css-->
+  <div class="mt-8 flex flex-col">
+    <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+        <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+        <table class="min-w-full divide-y divide-gray-300" id="task_info">
+          <thead class="bg-gray-50">
+            <tr>
+              <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"><%=t("task.column.title")%></th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%=t("task.column.content")%></th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" id='sort_priority'><%=sort_link(@q, :priority, t("task.column.priority"), defalt_order: :asc) %></th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%=t("task.column.state")%></th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%=t("task.column.tag")%></th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%=t("task.column.start_time")%></th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%=sort_link(@q, :end_time, t("task.column.end_time"), defalt_order: :asc) %></th>
+              <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
+                  <span class="sr-only">show</span>
+              </th>
+              <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
+                  <span class="sr-only">edit</span>
+              </th>
+              <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
+                  <span class="sr-only">delete</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody class="bg-white">
+            <% @tasks.each do |task|%>
+            <tr id="task_card">
+              <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6" id="task_title"><%= link_to task.title, task_path(task) %></td>
+              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= task.content%></td>
+              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= t("task.priority.#{task.priority}")%></td>
+              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= t("task.state.#{task.state}")%></td>
+              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= tag_name(task)%></td>
+              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= task.start_time.to_fs(:short)%></td>
+              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= task.end_time.to_fs(:short)%></td>
+              <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                <button class="text-indigo-600 hover:text-indigo-900"><%= link_to t("task.action.show"), task_path(task)%></button>
+              </td>
+              <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                <button class="text-indigo-600 hover:text-indigo-900"><%= link_to t("task.action.update"), edit_task_path(task)%></button>
+              </td>
+              <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                <button class="text-gray-400 hover:text-gray-500"><%= link_to t("task.action.delete"), task_path(task), id: 'delete-task', data: { "turbo-method": :delete, "turbo-confirm":t("task.message.confirm_delete") }%></button>
+              </td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
+  <%= paginate @tasks, window: 2 %>
+  </div>
 </div>

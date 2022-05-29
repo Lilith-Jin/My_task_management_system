@@ -1,32 +1,61 @@
 <%= render "nav/header" %>
-<div class="md:container md:mx-auto" id="user_list">
-  <div class="font-bold text-6xl text-blue-500"><%=t("user.h1.index_user")%></div>
-  <div class="mb-2 mt-2">
-    <button class="px-6 py-2 text-xl rounded-lg w-1/8 bg-sky-600 hover:bg-sky-700 text-white"> <%= link_to t("user.action.new"), new_user_path %></button>
+<div class="px-4 sm:px-6 lg:px-8" id="user_list">
+  <div class=" flex items-center sm:flex sm:items-center">
+    <div class="sm:flex-auto" >
+      <h1 class="text-5xl font-semibold text-gray-900""><%=t("user.h1.index_user")%></h1>
+    </div>
+    <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
+      <button class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto"> <%= link_to t("user.action.new"), new_user_path %></button>
+    </div>
   </div>
-  <table id="user_info">
-    <thead class="font-bold text-l">
-      <tr>
-        <th><%=t("user.column.name")%></th>
-        <th><%=t("user.column.email")%></th>
-        <th><%=t("user.column.task_size")%></th>
-        <th><%=t("user.column.role")%></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @users.each do |u|%>
-          <tr id="user_card">
-            <td><%= u.name%></td>
-            <td><%= u.email%></td>
-            <td><%= u.tasks.size%></td>
-            <td><%= u.role%></td>
-            <td><button class="px-6 py-2 rounded-lg w-1/8 bg-sky-600 hover:bg-sky-700 text-white"><%= link_to t("user.action.user_task_index"), admin_user_tasks_path(u)%></button></td>
-            <td><button class="px-6 py-2 rounded-lg w-1/8 bg-sky-600 hover:bg-sky-700 text-white"><%= link_to t("user.action.user_edit"), edit_admin_user_path(u)%></button></td>
-            <td><button class="px-6 py-2 rounded-lg w-1/8 bg-gray-400 hover:bg-gray-500 text-white"><%= link_to t("user.action.user_delete"), admin_user_path(u), data: { "turbo-method": :delete, "turbo-confirm":t("user.message.confirm_delete") }%></button></td>
-            <td></td>
-          </tr>
-      <% end %>
-    </tbody>
-  </table>
-  <%= paginate @users, window: 2 %>
+  <!--user list css-->
+  <div class="mt-8 flex flex-col">
+    <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+        <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+          <table class="min-w-full divide-y divide-gray-300" id="user_info">
+            <thead class="bg-gray-50">
+              <tr>
+                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"><%=t("user.column.name")%></th>
+                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%=t("user.column.email")%></th>
+                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%=t("user.column.task_size")%></th>
+                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%=t("user.column.role")%></th>
+                <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
+                  <span class="sr-only">task_list</span>
+                </th>
+                <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
+                  <span class="sr-only">edit</span>
+                </th>
+                <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
+                  <span class="sr-only">delete</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody class="bg-white">
+              <% @users.each do |u|%>
+                  <tr id="user_card">
+                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"><%= u.name%></td>
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= u.email%></td>
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= u.tasks.size%></td>
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= u.role%></td>
+                    <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                      <button class="text-indigo-600 hover:text-indigo-900"><%= link_to t("user.action.user_task_index"), admin_user_tasks_path(u)%></button>
+                    </td>
+                    <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                      <button class="text-indigo-600 hover:text-indigo-900"><%= link_to t("user.action.user_edit"), edit_admin_user_path(u)%></button>
+                    </td>
+                    <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                      <button class="text-gray-400 hover:text-gray-500"><%= link_to t("user.action.user_delete"), admin_user_path(u), data: { "turbo-method": :delete, "turbo-confirm":t("user.message.confirm_delete") }%></button>
+                    </td>
+                  </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
+    <%= paginate @users, window: 2 %>
+  </div>
 </div>
