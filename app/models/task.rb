@@ -6,7 +6,9 @@ class Task < ApplicationRecord
   has_many :tags, through: :task_tags, dependent: :destroy
   validates :title, presence: true
   validates :content, length: { maximum: 100, too_long: ' %<count>s only allow 100 characters ' }, presence: true
-  validates_comparison_of :end_time, greater_than: :start_time, allow_nil: false, if: proc { |task| task.start_time.present? }
+  validates_comparison_of :end_time, greater_than: :start_time, allow_nil: false, if: proc { |task|
+                                                                                        task.start_time.present?
+                                                                                      }
   validates_comparison_of :start_time, greater_than: Time.zone.today, allow_nil: false
   enum :priority, %i[high mid low], default: :high
   enum :state, %i[waiting running done], default: :waiting
