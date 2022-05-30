@@ -48,13 +48,13 @@
         <div>
           <%= u.label :role, t("user.column.role"), class: "block text-lg font-medium text-gray-700"%>
           <div class="mt-1">
-            <%= select(:user, :role, option_for_role_select(User.roles.keys), {}, class:"appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm")%>
+            <%= select(:user, :role, option_for_role_select(User.roles.keys), {}, class: "select_menu")%>
           </div>
         </div>
 
         <div>
           <div class="mt-4 mb-4">
-            <button><%= u.submit t("user.action.new"), class:"inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-lg font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto" %></button>
+            <button><%= u.submit t("user.action.new"), class: "submit_button" %></button>
           </div>
         </div>
       <% end %>
