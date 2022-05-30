@@ -1,45 +1,37 @@
+<%= render "nav/header" %>
 <div class="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
   <div class="sm:mx-auto sm:w-full sm:max-w-md">
     <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900"><%= t('user.h1.edit_user')%></h2>
   </div>
-    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-      <div class="bg-white py-10 px-6 shadow sm:rounded-lg sm:px-10">
-        <%= form_with(model: current_user, url: my_profile_path, method: :patch, data: {turbo: false}, html:{class: "space-y-6"}) do |u| %>
-            <div>
-              <%= u.label :name, class: "block text-lg font-medium text-gray-700" %>
-              <div class="mt-1">
-                <%= u.text_field :name, class: "user_field border-gray-300" %>
-              </div>
-            </div>
+  <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+    <div class="bg-white py-10 px-6 shadow sm:rounded-lg sm:px-10">
+      <%= form_with(model: current_user, url: my_profile_path, method: :patch, data: {turbo: false}, html:{class: "space-y-6"}) do |u| %>
+        <div>
+          <%= u.label :name, class: "block text-lg font-medium text-gray-700" %>
+          <div class="mt-1">
+            <%= u.text_field :name, class:" user_field " + (u.object.errors[:name].present? ? 'border-rose-500' : 'border-gray-300')  %>
+          </div>
+          <% if u.object.errors[:name]%>
+            <span class="block text-sm font-medium text-rose-500" ><%= u.object.errors[:name][0] %></span>
+          <% end %>
+        </div>
 
-            <div>
-              <%= u.label :email, class: "block text-lg font-medium text-gray-700" %>
-              <div class="mt-1">
-                <%= u.email_field :email, class: "user_field border-gray-300" %>
-              </div>
-            </div>
-
-            <div>
-              <%= u.label :password, t('user.column.password'), class: "block text-lg font-medium text-gray-700" %>
-              <div class="mt-1">
-                <%= u.password_field :password, class: "user_field border-gray-300" %>
-              </div>
-            </div>
-
-            <div>
-              <%= u.label :password_confirmation, t('user.column.password_confirmation'), class: "block text-lg font-medium text-gray-700" %>
-              <div class="mt-1">
-                <%= u.password_field :password_confirmation, class: "user_field border-gray-300" %>
-              </div>
-            </div>
-            
-            <div class="mt-4 mb-4"> 
-              <div>
-                <button><%= u.submit t('user.action.user_update'), class:" submit_button " %></button>
-              </div>
-            </div>  
-        <% end %>
-      </div>
+        <div>
+          <%= u.label :email, class: "block text-lg font-medium text-gray-700" %>
+          <div class="mt-1">
+            <%= u.email_field :email, class:" user_field " + (u.object.errors[:email].present? ? 'border-rose-500' : 'border-gray-300') %>
+          </div>
+          <% if u.object.errors[:email]%>
+            <span class="block text-sm font-medium text-rose-500" ><%= u.object.errors[:email][0] %></span>
+          <% end %>
+        </div>
+        
+        <div class="mt-4 mb-4"> 
+          <div>
+            <button><%= u.submit t('user.action.user_update'), class:" submit_button " %></button>
+          </div>
+        </div>  
+      <% end %>
     </div>
   </div>
 </div>
