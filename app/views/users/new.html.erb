@@ -1,4 +1,63 @@
-<div class="self text-center">
-  <div class="font-bold text-6xl text-blue-500"><%= t('user.h1.new_user')%></div>
-  <div><%= render 'form', user: @user, btn_label: t("user.action.new")%><div>
+<div class="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-md">
+    <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900"><%= t('user.h1.new_user')%></h2>
+  </div>
+  <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+    <div class="bg-white py-10 px-6 shadow sm:rounded-lg sm:px-10">
+      <%= form_with(model: @user, data: {turbo: false}, html:{class: "space-y-6"}) do |u| %> 
+        <div>
+          <%= u.label :name, class: "block text-lg font-medium text-gray-700" %>
+          <div class="mt-1">
+              <%= u.text_field :name, class:" user_field " + (u.object.errors[:name].present? ? 'border-rose-500' : 'border-gray-300') %>
+          </div>
+          <% if u.object.errors[:name] %>
+            <span class="block text-sm font-medium text-rose-500" ><%= u.object.errors[:name][0] %></span>
+          <% end %>
+        </div>
+
+        <div>
+          <%= u.label :email, class: "block text-lg font-medium text-gray-700" %>
+          <div class="mt-1">
+            <%= u.email_field :email, class:" user_field " + (u.object.errors[:email].present? ? 'border-rose-500' : 'border-gray-300') %>
+          </div>
+          <% if u.object.errors[:email]%>
+          <span class="block text-sm font-medium text-rose-500" ><%= u.object.errors[:email][0] %></span>
+          <% end %>
+        </div>
+        <%# debugger %>
+        <div>
+          <%= u.label :password, class: "block text-lg font-medium text-gray-700" %>
+          <div class="mt-1">
+            <%= u.password_field :password, class:" user_field " + (u.object.errors[:password].present? ? 'border-rose-500' : 'border-gray-300') %>
+          </div>
+          <% if u.object.errors[:password]%>
+          <span class="block text-sm font-medium text-rose-500"><%= u.object.errors[:password][0] %></span>
+          <% end %>
+        </div>
+
+        <div>
+          <%= u.label :password_confirmation, class: "block text-lg font-medium text-gray-700" %>
+          <div class="mt-1">
+            <%= u.password_field :password_confirmation, class:" user_field " + (u.object.errors[:password_confirmation].present? ? 'border-rose-500' : 'border-gray-300') %>
+          </div>
+          <% if u.object.errors[:password_confirmation]%>
+          <span class="block text-sm font-medium text-rose-500"><%= u.object.errors[:password_confirmation][0] %></span>
+          <% end %>
+        </div>
+
+        <div>
+          <%= u.label :role, t("user.column.role"), class: "block text-lg font-medium text-gray-700"%>
+          <div class="mt-1">
+            <%= select(:user, :role, option_for_role_select(User.roles.keys), {}, class:"appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm")%>
+          </div>
+        </div>
+
+        <div>
+          <div class="mt-4 mb-4">
+            <button><%= u.submit t("user.action.new"), class:"inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-lg font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto" %></button>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>
