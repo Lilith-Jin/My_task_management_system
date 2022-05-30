@@ -1,47 +1,70 @@
-<div class="bg-indigo-50 min-h-screen md:px-20 pt-6">
-  <div class=" bg-white rounded-md px-6 py-10 max-w-2xl mx-auto">
-    <%= form_with(model: task, data: {turbo: false}) do |t| %>
-      <% if task.errors.any? %>
-        <div id="error_explanation">
-          <ul>
-          <% task.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-          <% end %>
-          </ul>
-        </div>
-      <% end %>
-      <div class="space-y-4">
-        <div class="fields flex space-x-4">
-          <%= t.label :title, class: "text-lx" %>
-          <%= t.text_field :title, class:"ml-2 outline-none py-1 px-2 text-md border-2 rounded-md", placeholder:"請輸入標題" %>
-        </div>
-        <div class="fields flex space-x-4">
-          <%= t.label :content, class: "text-lx " %>
-          <%= t.text_area :content , class:"ml-2 outline-none py-1 px-2 text-md border-2 rounded-md", placeholder:"請輸入內容"%>
-        </div>
-        <div class="fields flex space-x-4">
-          <%= t.label :start_time %>
-          <%= t.datetime_field :start_time, class:"ml-2 outline-none py-1 px-2 text-md border-2 rounded-md" %>
-        </div>
-        <div class="fields flex space-x-4">
-          <%= t.label :end_time %>
-          <%= t.datetime_field :end_time, class:"ml-2 outline-none py-1 px-2 text-md border-2 rounded-md" %>
-        </div>
-        <div class="fields flex space-x-4">
-          <%= t.label :priority, t("task.column.priority") %>
-          <%= select(:task, :priority ,option_for_priority_select(Task.priorities.keys))%>
-        </div>
-        <div class="fields flex space-x-4">
-          <%= t.label :state, t("task.column.state") %>
-          <%= select(:task, :state, option_for_state_select(Task.states.keys))%>
-        </div>
-      
-        <div class="rounded-md shadow-sm">
-          <%= t.text_field :tags_name, placeholder: "請輸入標籤名稱", class: "tags-input", data: { controller: "tags" } %>
-        </div>
-        <button><%= t.submit btn_label, class:" px-6 py-2 mx-auto block rounded-md text-lg font-semibold bg-sky-600 hover:bg-sky-700 text-white cursor-pointer " %></button>
-      </div>
+
+<%= form_with(model: task, data: {turbo: false}, html:{class: "space-y-6"}) do |t| %>
+  <div>
+    <%= t.label :title, class: "block text-lg font-medium text-gray-700" %>
+    <div class="mt-1">
+      <%= t.text_field :title, class:" task_field " + (t.object.errors[:title].present? ? 'border-rose-500' : 'border-gray-300'), placeholder:'請輸入標題' %>
+    </div>
+    <% if t.object.errors[:title] %>
+      <span class="block text-sm font-medium text-rose-500" ><%= t.object.errors[:title][0] %></span>
     <% end %>
   </div>
-</div>
+
+  <div>
+    <%= t.label :content, class: "block text-lg font-medium text-gray-700" %>
+    <div class="mt-1">
+      <%= t.text_area :content , class:" task_field " + (t.object.errors[:content].present? ? 'border-rose-500' : 'border-gray-300'), placeholder:'請輸入內容'%>
+    </div>
+    <% if t.object.errors[:content] %>
+      <span class="block text-sm font-medium text-rose-500" ><%= t.object.errors[:content][0] %></span>
+    <% end %>
+  </div>
+
+  <div>
+    <%= t.label :start_time, class: "block text-lg font-medium text-gray-700" %>
+    <div class="mt-1">
+      <%= t.datetime_field :start_time, class:" task_field " + (t.object.errors[:start_time].present? ? 'border-rose-500' : 'border-gray-300') %>
+    </div>
+    <% if t.object.errors[:start_time] %>
+      <span class="block text-sm font-medium text-rose-500" ><%= t.object.errors[:start_time][0] %></span>
+    <% end %>
+  </div>
+
+  <div>
+    <%= t.label :end_time, class: "block text-lg font-medium text-gray-700" %>
+    <div class="mt-1">
+    <%= t.datetime_field :end_time, class:" task_field " + (t.object.errors[:end_time].present? ? 'border-rose-500' : 'border-gray-300') %>
+    </div>
+    <% if t.object.errors[:end_time] %>
+      <span class="block text-sm font-medium text-rose-500" ><%= t.object.errors[:end_time][0] %></span>
+    <% end %>
+  </div>
+
+  <div>
+    <%= t.label :priority, t("task.column.priority"), class: "block text-lg font-medium text-gray-700" %>
+    <div class="mt-1">
+      <%= select(:task, :priority ,option_for_priority_select(Task.priorities.keys), {}, class: "select_menu")%>
+    </div>
+  </div>
+
+  <div>
+    <%= t.label :state, t("task.column.state"), class: "block text-lg font-medium text-gray-700" %>
+    <div class="mt-1">
+      <%= select(:task, :state, option_for_state_select(Task.states.keys), {}, class: "select_menu")%>
+    </div>
+  </div>
+
+  <div>
+    <%= t.label :tags_name, class: "block text-lg font-medium text-gray-700" %>
+    <div class="mt-1">
+      <%= t.text_field :tags_name, placeholder: "請輸入標籤名稱", data: { controller: "tags" } %>
+    </div>
+  </div>
+
+  <div>
+    <div class="mt-4 mb-4">  
+      <button><%= t.submit btn_label, class: "submit_button" %></button>
+    </div> 
+  </div>  
+<% end %>
 
