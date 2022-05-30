@@ -15,7 +15,7 @@ module Admin
       if @user.update(user_params)
         redirect_to admin_users_path, notice: I18n.t('user.message.success_update')
       else
-        render :edit, notice: I18n.t('user.message.failed_update')
+        render :edit, alert: I18n.t('user.message.failed_update')
       end
     end
 
@@ -23,7 +23,7 @@ module Admin
       if @user.destroy
         redirect_to admin_users_path, status: :see_other, notice: I18n.t('user.message.success_delete')
       else
-        redirect_to admin_users_path, status: :see_other, notice: I18n.t('user.message.failed_delete')
+        redirect_to admin_users_path, status: :see_other, alert: I18n.t('user.message.failed_delete')
       end
     end
 

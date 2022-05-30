@@ -9,7 +9,7 @@ class MyProfilesController < ApplicationController
     if current_user.update(user_params)
       redirect_to tasks_path, notice: I18n.t('user.message.success_update')
     else
-      render :edit, notice: I18n.t('user.message.failed_update')
+      render :edit, alert: I18n.t('user.message.failed_update')
     end
   end
 
