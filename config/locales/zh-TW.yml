@@ -41,9 +41,9 @@
 
   task:
     search:
-      title: 請輸入任務名稱
-      state: 請選擇任務狀態 
-      tag: 請輸入標籤名稱
+      title: 請輸入任務名稱：
+      state: 請選擇任務狀態 ：
+      tag: 請輸入標籤名稱：
     search_button: 搜尋
     h1:
       index_task: 任務列表
@@ -66,6 +66,8 @@
       delete: 刪除任務
       new_tag: 新增標籤
       delete_tag: 刪除標籤
+      my_task: 我的任務
+      new_task: 新增任務
 
     priority:
       high: 高
@@ -83,11 +85,18 @@
       success_update: 任務更新成功！
       success_delete: 任務刪除成功！
       confirm_delete: 您確定要刪除此筆任務嗎？  
+
+    placeholder:
+      title: 請輸入標題
+      content: 請輸入內容
+      tag: 請輸入標籤
+
   user:
     h1:
       index_user: 使用者列表
       edit_user: 編輯會員資訊
       new_user: 註冊新會員
+      login_user: 會員登入
 
     column:
       name: 姓名
@@ -102,11 +111,11 @@
       viewer: 一般用戶
     
     action:
-      new: 註冊
+      new: 註冊會員
       login: 登入
       delete: 登出
       edit: 編輯個人資訊
-      login_to_new: 尚未有帳號，前往註冊
+      login_to_new: 註冊新會員
       user_update: 更新
       user_edit: 編輯
       user_delete: 刪除
