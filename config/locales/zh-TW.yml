@@ -109,7 +109,7 @@
       login: 登入
       delete: 登出
       edit: 編輯個人資訊
-      login_to_new: 尚未有帳號，前往註冊
+      login_to_new: 註冊新會員
       user_update: 更新
       user_edit: 編輯
       user_delete: 刪除
