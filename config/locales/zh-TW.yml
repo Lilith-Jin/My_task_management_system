@@ -88,6 +88,7 @@
       index_user: 使用者列表
       edit_user: 編輯會員資訊
       new_user: 註冊新會員
+      login_user: 會員登入
 
     column:
       name: 姓名
