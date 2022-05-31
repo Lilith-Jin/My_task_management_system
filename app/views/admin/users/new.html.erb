@@ -1,11 +1,11 @@
 <%= render "nav/header" %>
 <div class="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
   <div class="sm:mx-auto sm:w-full sm:max-w-md">
-    <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900"><%= t('user.h1.edit_user')%></h2>
+    <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900"><%= t('user.h1.new_user')%></h2>
   </div>
   <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
     <div class="bg-white py-10 px-6 shadow sm:rounded-lg sm:px-10">
-      <%= render 'form', user: @user, url: admin_user_path(@user), btn_label: t("user.action.user_update")%>
+      <%= render 'form', user: @user, url: admin_users_path, btn_label: t("user.action.new")%>
     </div>
   </div>
 </div>

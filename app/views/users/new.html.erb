@@ -24,7 +24,7 @@
           <span class="block text-sm font-medium text-rose-500" ><%= u.object.errors[:email][0] %></span>
           <% end %>
         </div>
-        <%# debugger %>
+       
         <div>
           <%= u.label :password, class: "block text-lg font-medium text-gray-700" %>
           <div class="mt-1">
@@ -43,13 +43,6 @@
           <% if u.object.errors[:password_confirmation]%>
           <span class="block text-sm font-medium text-rose-500"><%= u.object.errors[:password_confirmation][0] %></span>
           <% end %>
-        </div>
-
-        <div>
-          <%= u.label :role, t("user.column.role"), class: "block text-lg font-medium text-gray-700"%>
-          <div class="mt-1">
-            <%= select(:user, :role, option_for_role_select(User.roles.keys), {}, class: "select_menu")%>
-          </div>
         </div>
 
         <div>
