@@ -1,12 +1,44 @@
 <%= render "nav/header" %>
-<div class="font-bold text-6xl text-blue-500" id='task_show_field'><%=t("task.h1.show_task")%></div>
-<div class="py-4 text-4xl font-medium"><%=t("task.column.title")%><%= @task.title%></div>
-<div class="space-y-2 text-xl">
-    <p><%=t("task.column.content")%><%= @task.content%></p>
-    <p><%=t("task.column.priority")%><%= t("task.priority.#{@task.priority}")%></p>
-    <p><%=t("task.column.state")%><%= t("task.state.#{@task.state}")%></p>
-    <p><%=t("task.column.tag")%><%= tag_name(@task)%></p>
-    <p><%=t("task.column.start_time")%><%= @task.start_time.to_s(:short)%></p>
-    <p><%=t("task.column.end_time")%><%= @task.end_time.to_s(:short)%></p>
-    <button class="px-6 py-2 rounded-lg w-1/8 bg-sky-600 hover:bg-sky-700 text-white"><%= link_to t("task.action.back"), tasks_path%></button>
+<div class="px-4 sm:px-6 lg:px-8" id='task_show_field'>
+	<div class="sm:flex-auto">
+			<h1 class="text-5xl font-semibold text-gray-900"><%=t("task.h1.show_task")%></h1>
+	</div>
+	<div class="mt-8 flex flex-col">
+		<div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+			<div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+				<div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+				<table class="min-w-full divide-y divide-gray-300" id="task_info">
+					<thead class="bg-gray-50">
+						<tr>
+							<th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"><%=t("task.column.title")%></th>
+							<th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%=t("task.column.content")%></th>
+							<th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%=t("task.column.priority")%></th>
+							<th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%=t("task.column.state")%></th>
+							<th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%=t("task.column.tag")%></th>
+							<th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%=t("task.column.start_time")%></th>
+							<th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%=t("task.column.end_time")%></th>
+							<th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
+									<span class="sr-only">back to last page</span>
+							</th>
+						</tr>
+					<thead>
+					<tbody>
+						<tr>
+							<td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"><%= @task.title%></td>
+							<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= @task.content%></td>
+							<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= t("task.priority.#{@task.priority}")%></td>
+							<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= t("task.state.#{@task.state}")%></td>
+							<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= tag_name(@task)%></td>
+							<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= @task.start_time.to_s(:short)%></td>
+							<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= @task.end_time.to_s(:short)%></td>
+							<td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+								<button class="text-indigo-600 hover:text-indigo-900"><%= link_to t("task.action.back"), tasks_path%></button>
+							</td>
+						</tr>	
+					<tbody>
+				</table>	
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

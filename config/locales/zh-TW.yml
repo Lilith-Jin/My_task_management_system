@@ -85,6 +85,12 @@
       success_update: 任務更新成功！
       success_delete: 任務刪除成功！
       confirm_delete: 您確定要刪除此筆任務嗎？  
+
+    placeholder:
+      title: 請輸入標題
+      content: 請輸入內容
+      tag: 請輸入標籤
+
   user:
     h1:
       index_user: 使用者列表

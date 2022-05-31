@@ -1,5 +1,9 @@
 <%= render "nav/header" %>
-<div class="self text-center">
-    <div class="font-bold text-6xl text-blue-500"><%=t("task.h1.new_task")%></div>
-    <div><%= render "form", task: @task, btn_label: t("task.action.create")%></div>
+<div class="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900"><%=t("task.h1.new_task")%></h2>
+	<div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+    <div class="bg-white py-10 px-6 shadow sm:rounded-lg sm:px-10">
+    	<%= render "form", task: @task, btn_label: t("task.action.create")%>
+		</div>
+	</div>	
 </div>
