@@ -8,7 +8,6 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      login(@user)
       redirect_to tasks_path, notice: I18n.t('user.message.success_register')
     else
       render :new
